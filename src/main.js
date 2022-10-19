@@ -12,5 +12,3 @@ app.config.globalProperties.$axios = axios
 app.use(router)
 // 앱 마운트
 app.mount('#app')
-
-test
