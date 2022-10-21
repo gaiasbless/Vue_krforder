@@ -1,5 +1,6 @@
 <script setup>
   import { getCurrentInstance, ref, onMounted } from 'vue'
+  import sha256 from 'sha256'
 
   const $app = getCurrentInstance()
   const $axios = $app.appContext.config.globalProperties.$axios
@@ -9,12 +10,11 @@
   })
 
   onMounted(() => {
-    console.log( 'LifeCycle - onMounted()' )
-
-    log( process.env.NODE_ENV )
+    console.log( '[' + getCurrentInstance()?.type.__name + '] - onMounted()')
+    console.log( 'SHA Test : Test => ' + sha256('Test'))
   })
 
-  function log( msg ) {
+  function log() {
     if( process.env.NODE_ENV === 'development' ) console.log('함수 호출 - API_SignIn() ')
     var PostParams = new URLSearchParams();
     // PostParams.append( 'ID', this.FormValue.Account );
@@ -58,7 +58,10 @@
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 
-  <router-link to="/rt">RouterTest</router-link>
+  <router-link to="/rt">RouterTest</router-link><br />
+  <router-link to="/user/signin">로그인</router-link><br /><br />
+
+  <img src="@bootstrap-icons/icons/spotify.svg" alt="Bootstrap" width="64" height="64">
 </template>
 
 <style scoped>
