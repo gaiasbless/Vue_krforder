@@ -11,6 +11,7 @@ import '@bootstrap';
 const app = createApp( App )
 // 전역변수 설정
 app.config.globalProperties.$axios = axios
+app.config.globalProperties.$SignInState = false
 // 앱 사용 설정
 app.use( router )
 // 앱 마운트

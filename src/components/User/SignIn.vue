@@ -1,8 +1,8 @@
 <template>
-  <div container-fluid class="h-100">
-    test
+  <div container-fluid class="h-100 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
     <div class="row w-100 h-100 d-flex flex-nowrap">
       <div class="col-8">
+        ㅅㄷㄴㅅ
       </div>
     </div>
 
@@ -12,19 +12,21 @@
 </template>
 
 <script setup>
+// 인스턴스 생성
   import { getCurrentInstance, ref, onMounted } from 'vue'
   import sha256 from 'sha256'
-
-  const $app = getCurrentInstance()
-  const $axios = $app.appContext.config.globalProperties.$axios
+  import LogManager from '@/utility/LogManager'
+  // 인스턴스 할당
+  const AppInstance = getCurrentInstance()
+  const AxiosInstance = $app.appContext.config.globalProperties.$axios
 
   defineProps({
     msg: String
   })
 
   onMounted(() => {
-    console.log( '[' + getCurrentInstance()?.type.__name + '] - onMounted()')
-    console.log( 'SHA Test : Test => ' + sha256('Test'))
+    LogManager.w( AppInstance?.type.__name, 'onMounted()' )
+    LogManager.w( 'SHA Test : Test => ' + sha256('Test'))
   })
 
   function log() {
@@ -32,7 +34,7 @@
     var PostParams = new URLSearchParams();
     // PostParams.append( 'ID', this.FormValue.Account );
     // PostParams.append( 'PASSWORD', sha256( this.FormValue.Password ) );
-    $axios.post( "/api/Users/SignIn.php", PostParams )
+    AxiosInstance.post( "/api/Users/SignIn.php", PostParams )
     .then(response => {
       if( process.env.NODE_ENV === 'development' ) console.log( 'Http Result - API_SignIn() - Result : ' + JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {

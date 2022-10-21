@@ -58,7 +58,6 @@
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 
-  <router-link to="/rt">RouterTest</router-link><br />
   <router-link to="/user/signin">로그인</router-link><br /><br />
 
   <img src="@bootstrap-icons/icons/spotify.svg" alt="Bootstrap" width="64" height="64">

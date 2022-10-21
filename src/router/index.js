@@ -1,18 +1,14 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
-import RouterTest from '@/components/RouteTest.vue'
 import SignIn from '@/components/User/SignIn.vue'
+
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+import { LogManager } from '@/utility/LogManager'
 
 const routes = [
   {
     path: "/",
     name: 'HelloWorld',
     component: HelloWorld,
-  },
-  {
-    path: "/rt",
-    name: 'RouterTest',
-    component: RouterTest,
   },
   {
     path: "/user/signin",
@@ -28,8 +24,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('라우터 이벤트 - 이동경로 : ' + to.path)
+  LogManager.w( 'Router Event', 'beforeEach', '이동경로', to.path )
   next()
 });
 
-export default router;
+export default router
