@@ -23,3 +23,18 @@
   function DisplayLayout_Default() {
   }
 </script>
+
+<style lang="scss">
+  @import '@/assets/scss/custom.scss';
+  @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  #app {
+    font-family: 'Nanum Gothic', 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
+    color: #2c3e50;
+    margin-top: 0px;
+  }
+</style>

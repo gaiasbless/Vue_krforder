@@ -1,7 +1,28 @@
 <template>
-  <div container class="w-100">
-    SIgnIn
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-korea px-2">
+    <a class="navbar-brand" href="#">
+      <img class="d-inline-block align-text-middle" src="@/assets/logo_krf.jpg" width="30" height="30"><b class="ms-2">K-RF</b>
+    </a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <router-link class="nav-link active" aria-current="page" to="/">홈</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link active" aria-current="page" to="/user/signin">발주관리</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link active" aria-current="page" to="/user/signin">-</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link active" aria-current="page" to="/user/signin">-</router-link>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <router-link class="nav-link active" aria-current="page" to="/user/signin">로그아웃</router-link>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script setup>
@@ -29,3 +50,28 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 5 5px;
+}
+a {
+  color: #ffffff;
+}
+.navbar-dark .navbar-nav .nav-link{
+  color: white;
+  font-size: medium;
+}
+.navbar-dark:hover .navbar-nav:hover .nav-link:hover{
+  color: white;
+  text-decoration: underline;
+}
+</style>

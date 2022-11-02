@@ -1,5 +1,5 @@
-import HelloWorld from '@/components/HelloWorld.vue'
 import SignIn from '@/components/User/SignIn.vue'
+import Home from '@/components/Home/Home.vue'
 
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import { LogManager } from '@/utility/LogManager'
@@ -7,8 +7,8 @@ import { LogManager } from '@/utility/LogManager'
 const routes = [
   {
     path: "/",
-    name: 'HelloWorld',
-    component: HelloWorld,
+    name: 'Home',
+    component: Home,
   },
   {
     path: "/user/signin",
