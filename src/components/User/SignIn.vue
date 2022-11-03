@@ -1,9 +1,25 @@
 <template>
-  <div container-fluid class="h-100 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-    <div class="row w-100 h-100 d-flex flex-nowrap">
-      <div class="col-8">
+  <div class="container h-100 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+    <form v-on:submit.prevent="API_SignIn" autocomplete="off">
+      <div class="row">
+        <span class="fs-4 text-korea"><b>K-RF Online Management</b></span>
       </div>
-    </div>
+      <div class="row mt-3">
+        <input class="form-control" id="Input_Account" type="text" placeholder="계정" v-model="FormValue.Account" autofocus required/>
+      </div>
+      <div class="row mt-2">
+        <input class="form-control" id="Input_Password" type="password" placeholder="비밀번호" v-model="FormValue.Password" required/>
+      </div>
+      <div class="row mt-2">
+        <button class="btn btn-outline-primary" type="submit">로그인</button>
+      </div>
+    </form>
+    <!-- 다이얼로그 -->
+    <!--
+    <modal ref="Modal_LoginResult_Failed" size="md" centered title="로그인 실패" ok-title="확인" ok-only>
+      계정 또는 비밀번호가 일치하지 않습니다.<br>확인 후 재시도 하세요.
+    </modal>
+   -->
   </div>
 </template>
 
@@ -15,17 +31,15 @@
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
   const AxiosInstance = AppInstance.appContext.config.globalProperties.$axios
-
-  defineProps({
-    msg: String
-  })
-
+  // 내부변수 할당
+  const FormValue = ref({ Account: '', Password: '' })
+  // 이벤트 설정
   onMounted(() => {
     LogManager.w( AppInstance?.type.__name, 'onMounted()' )
     LogManager.w( 'SHA Test : Test => ' + sha256('Test'))
   })
-
-  function log() {
+  // 함수 설정
+  function API_SignIn() {
     if( process.env.NODE_ENV === 'development' ) console.log('함수 호출 - API_SignIn() ')
     var PostParams = new URLSearchParams();
     // PostParams.append( 'ID', this.FormValue.Account );
@@ -40,9 +54,6 @@
       if( process.env.NODE_ENV === 'development' ) console.log('HTTP 호출 실패', ex)
     })
   }
-
-  let count = ref(0)
-  let array = ref([ 0, 1, 2 ])
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

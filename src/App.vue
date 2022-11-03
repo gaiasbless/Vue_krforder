@@ -1,6 +1,8 @@
 <template>
-  <component v-bind:is="Component_Header_Base"></component>
-  <router-view/>
+  <div id="app" v-bind:style="Style_Size">
+    <component v-bind:is="Component_Header_Base"></component>
+    <router-view/>
+  </div>
 </template>
 
 <script setup>
@@ -22,6 +24,34 @@
   // 내부 함수
   function DisplayLayout_Default() {
   }
+</script>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      Style_Size: '',
+    }
+  },
+  created() {
+    window.addEventListener( 'resize', this.EventHandler_Resize )
+    window.addEventListener( 'scroll', this.EventHandler_Scroll )
+    this.EventHandler_Resize()
+  },
+  destroyed() {
+      window.removeEventListener( 'resize', this.EventHandler_Resize )
+      window.removeEventListener( 'scroll', this.EventHandler_Scroll )
+  },
+  methods: {
+    EventHandler_Resize() {
+      this.Style_Size = 'height: ' + (window.innerHeight-57) + 'px;'
+    },
+    EventHandler_Scroll() {
+      this.Style_Size = 'height: ' + (window.innerHeight-57) + 'px;'
+    }
+  }
+}
 </script>
 
 <style lang="scss">

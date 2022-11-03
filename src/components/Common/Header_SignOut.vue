@@ -3,15 +3,15 @@
     <a class="navbar-brand" href="#">
       <img class="d-inline-block align-text-middle" src="@/assets/logo_krf.jpg" width="30" height="30"><b class="ms-2">K-RF</b>
     </a>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav" style="padding-bottom: 2px">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">홈</a>
+        <!-- <a class="nav-link active" aria-current="page" href="/">홈</a> -->
       </li>
     </ul>
-    {{ RouterInstance.path }}
-    <ul class="navbar-nav ms-auto">
+
+    <ul class="navbar-nav ms-auto" style="padding-bottom: 2px">
       <li class="nav-item">
-        <router-link class="nav-link active" aria-current="page" to="/user/signin" v-if="RouterInstance.path !== '/user/signin'">회원가입</router-link>
+        <!-- <router-link class="nav-link active" aria-current="page" to="/user/signin" v-if="RouterInstance.path !== '/user/signin'">회원가입</router-link> -->
       </li>
     </ul>
   </nav>
@@ -41,6 +41,7 @@ export default {
     }
   },
   created() {
+    this.$router.push( '/user/signin' )
   },
 }
 </script>
