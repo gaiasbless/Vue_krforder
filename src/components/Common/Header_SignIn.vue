@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-korea px-2">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-2">
     <a class="navbar-brand" href="#">
       <img class="d-inline-block align-text-middle" src="@/assets/logo_krf.jpg" width="30" height="30"><b class="ms-2">K-RF</b>
     </a>

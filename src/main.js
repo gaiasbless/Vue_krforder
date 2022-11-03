@@ -5,7 +5,7 @@ import router from './router'
 
 import '@bootstrap/dist/css/bootstrap.min.css'
 import '@bootstrap';
-// import './style.css'
+import '@/assets/scss/custom.scss';
 
 // 앱 인스턴스 생성
 const app = createApp( App )

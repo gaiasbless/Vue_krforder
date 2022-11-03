@@ -55,7 +55,6 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/custom.scss';
   @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
   @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
   @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);

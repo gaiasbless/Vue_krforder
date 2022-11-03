@@ -1,8 +1,8 @@
 <template>
   <div class="container h-100 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-    <form v-on:submit.prevent="API_SignIn" autocomplete="off">
+    <form class="mb-5" v-on:submit.prevent="API_SignIn" autocomplete="off">
       <div class="row">
-        <span class="fs-4 text-korea"><b>K-RF Online Management</b></span>
+        <span class="fs-4 text-primary"><b>K-RF Online Management</b></span>
       </div>
       <div class="row mt-3">
         <input class="form-control" id="Input_Account" type="text" placeholder="계정" v-model="FormValue.Account" autofocus required/>

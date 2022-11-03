@@ -1,3 +1,9 @@
+// @import "@bootstrap/scss/functions";
+// @import "@bootstrap/scss/variables";
+// @import "@bootstrap/scss/maps";
+// @import "@bootstrap/scss/mixins";
+// @import "@bootstrap/scss/utilities";
+
 // Base grayscale colors definitions
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -25,7 +31,7 @@ $cyan: #17a2b8 !default;
 $korea: #007978 !default;
 
 // Theme color default definitions
-$primary: $korea !default;
+$primary: $blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
 $info: $cyan !default;
@@ -38,7 +44,7 @@ $dark: $gray-800 !default;
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    'primary': $primary,
+    'primary': $korea,
     'secondary': $secondary,
     'success': $success,
     'info': $info,
@@ -46,7 +52,6 @@ $theme-colors: map-merge(
     'danger': $danger,
     'light': $light,
     'dark': $dark,
-    'korea': $korea,
   ),
   $theme-colors
 );
