@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-2">
     <a class="navbar-brand" href="#">
-      <img class="d-inline-block align-text-middle" src="@/assets/logo_krf.jpg" width="30" height="30"><b class="ms-2">K-RF</b>
+      <img class="d-inline-block align-text-middle" src="@/assets/logo_krf.jpg" width="30" height="30"><b class="ms-2">K-RF 업무관리</b>
     </a>
     <ul class="navbar-nav" style="padding-bottom: 2px">
       <li class="nav-item">
@@ -20,16 +20,17 @@
 <script setup>
   // 인스턴스 생성
   import { getCurrentInstance, ref, onMounted } from 'vue'
-  import { useRoute } from 'vue-router'
   import LogManager from '@/utility/LogManager'
+  import router from '@/router'
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
-  const RouterInstance = useRoute()
+  // const RouterInstance = useRoute()
   // 전역변수 할당
   let Global_SignInState = AppInstance.appContext.config.globalProperties.$SignInState
   // 이벤트 설정
   onMounted(() => {
     LogManager.w( 'Header_SignOut', 'onMounted()' )
+    router.push( '/user/signin' )
   })
 </script>
 
@@ -41,7 +42,7 @@ export default {
     }
   },
   created() {
-    this.$router.push( '/user/signin' )
+    // this.$router.push( '/user/signin' )
   },
 }
 </script>
@@ -60,13 +61,5 @@ li {
 }
 a {
   color: #ffffff;
-}
-.navbar-dark .navbar-nav .nav-link{
-  color: white;
-  font-size: medium;
-}
-.navbar-dark:hover .navbar-nav:hover .nav-link:hover{
-  color: white;
-  text-decoration: underline;
 }
 </style>

@@ -10,7 +10,6 @@
 <script setup>
   // 인스턴스 생성
   import { getCurrentInstance, ref, onMounted } from 'vue'
-  import sha256 from 'sha256'
   import LogManager from '@/utility/LogManager'
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
@@ -22,7 +21,6 @@
 
   onMounted(() => {
     LogManager.w( AppInstance?.type.__name, 'onMounted()' )
-    LogManager.w( 'SHA Test : Test => ' + sha256('Test'))
   })
 
   function log() {
