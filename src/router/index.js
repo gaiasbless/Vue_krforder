@@ -1,5 +1,6 @@
 import SignIn from '@/components/User/SignIn.vue'
 import Home from '@/components/Home/Home.vue'
+import Order_Main from '@/components/Order/Order_Main.vue'
 
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 
@@ -13,6 +14,11 @@ const routes = [
     path: "/user/signin",
     name: 'SignIn',
     component: SignIn,
+  },
+  {
+    path: "/order/:PageName",
+    name: 'Order_Main',
+    component: Order_Main,
   },
 ]
 

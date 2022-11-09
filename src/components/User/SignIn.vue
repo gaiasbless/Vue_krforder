@@ -14,48 +14,55 @@
         <button class="btn btn-outline-primary" type="submit">로그인</button>
       </div>
     </form>
-
-<!--
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Dialog_Alert">
-      Launch demo modal
-    </button> -->
     <!-- 다이얼로그 -->
     <Dialog_Alert Title="로그인 실패" Message="계정 또는 비밀번호가 일치하지 않습니다."/>
-    <!--
-    <modal ref="Modal_LoginResult_Failed" size="md" centered title="로그인 실패" ok-title="확인" ok-only>
-      계정 또는 비밀번호가 일치하지 않습니다.<br>확인 후 재시도 하세요.
-    </modal>
-   -->
   </div>
 </template>
 
 <script setup>
   import Dialog_Alert from '@/components/Common/Dialog_Common_Alert.vue'
 
+  // 외부데이터 전달
+  const Props = defineProps({
+    LocalSignIn:{ Type: String, default : "" },
+  })
+    const Emits = defineEmits( [ "Event_UpdateSignIn" ] )
   // 인스턴스 생성
   import { getCurrentInstance, ref, onMounted } from 'vue'
   import sha256 from 'sha256'
+  import router from '@/router'
   import LogManager from '@/utility/LogManager'
   import * as bootstrap from 'bootstrap'
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
   const AxiosInstance = AppInstance.appContext.config.globalProperties.$axios
+  // 전역변수 할당
+  let GLOBAL_PROPERTY = AppInstance.appContext.config.globalProperties
   // 내부변수 할당
   const FormValue = ref({ Account: '', Password: '' })
   // 이벤트 설정
   onMounted(() => {
     LogManager.w( AppInstance?.type.__name, 'onMounted()' )
+    DisplayLayout_Default()
   })
-  // 함수 설정
+  // 내부 함수
+  function DisplayLayout_Default() {
+  }
   function API_SignIn() {
-    if( process.env.NODE_ENV === 'development' ) console.log('함수 호출 - API_SignIn() ')
     var PostParams = new URLSearchParams();
     PostParams.append( 'ID', FormValue.value.Account );
     PostParams.append( 'PASSWORD', sha256( FormValue.value.Password ) );
+    LogManager.w( AppInstance?.type.__name, "API_SignIn()", "Parameter", PostParams.toString() )
     AxiosInstance.post( "/api/Users/SignIn.php", PostParams )
     .then(response => {
       if( process.env.NODE_ENV === 'development' ) console.log( 'Http Result - API_SignIn() - Result : ' + JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {
+        GLOBAL_PROPERTY.$SignInState = true
+        GLOBAL_PROPERTY.$SignInToken = response.data.SIGNIN_TOKEN
+        GLOBAL_PROPERTY.$UserId = response.data.USER_ID
+        GLOBAL_PROPERTY.$UserName = response.data.USER_NAME
+        router.replace( "/" )
+        Emits( "Event_UpdateSignIn" );
       }
       else {
         FormValue.value.Password = ""
@@ -66,6 +73,21 @@
       if( process.env.NODE_ENV === 'development' ) console.log('HTTP 호출 실패', ex)
     })
   }
+</script>
+
+<script>
+export default {
+  data() {
+    return {
+    }
+  },
+  created() {
+  },
+  destroyed() {
+  },
+  methods: {
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -24,14 +24,16 @@
   import router from '@/router'
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
-  // const RouterInstance = useRoute()
   // 전역변수 할당
-  let Global_SignInState = AppInstance.appContext.config.globalProperties.$SignInState
   // 이벤트 설정
   onMounted(() => {
     LogManager.w( 'Header_SignOut', 'onMounted()' )
-    router.push( '/user/signin' )
+    DisplayLayout_Default()
   })
+  // 내부 함수
+  function DisplayLayout_Default() {
+    router.push( '/user/signin' )
+  }
 </script>
 
 <script>

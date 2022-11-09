@@ -1,7 +1,7 @@
 <template>
   <div id="app" v-bind:style="Style_Size">
-    <component v-bind:is="Component_Header_Base"></component>
-    <router-view/>
+    <Component_Header_Base v-bind:key="Key_UpdateCount" v-on:Event_UpdateSignIn="DisplayLayout_UpdateSignIn"/>
+    <router-view v-on:Event_UpdateSignIn="DisplayLayout_UpdateSignIn"/>
   </div>
 </template>
 
@@ -15,14 +15,17 @@
   const AppInstance = getCurrentInstance()
   // 전역변수 할당
   // 내부변수 할당
-  // 기본 레이아웃 출력
-  DisplayLayout_Default()
+  let Key_UpdateCount = ref( 0 )
   // 이벤트 설정
   onMounted(() => {
-    LogManager.w( 'App_Main', 'onMounted()' )
+    LogManager.w( "App", 'onMounted()' )
+    DisplayLayout_Default()
   })
   // 내부 함수
   function DisplayLayout_Default() {
+  }
+  function DisplayLayout_UpdateSignIn() {
+    Key_UpdateCount.value = Key_UpdateCount.value + 1
   }
 </script>
 
@@ -45,12 +48,12 @@ export default {
   },
   methods: {
     EventHandler_Resize() {
-      this.Style_Size = 'height: ' + (window.innerHeight-57) + 'px;'
+      this.Style_Size = 'height: ' + (window.innerHeight) + 'px;'
     },
     EventHandler_Scroll() {
-      this.Style_Size = 'height: ' + (window.innerHeight-57) + 'px;'
+      this.Style_Size = 'height: ' + (window.innerHeight) + 'px;'
     }
-  }
+  },
 }
 </script>
 
@@ -62,8 +65,10 @@ export default {
     font-family: 'Nanum Gothic', 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
     text-align: left;
-    color: #2c3e50;
-    margin-top: 0px;
+    color: black;
   }
 </style>

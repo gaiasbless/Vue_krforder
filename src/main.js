@@ -13,6 +13,9 @@ const app = createApp( App )
 // 전역변수 설정
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.$SignInState = false
+app.config.globalProperties.$SignInToken = ""
+app.config.globalProperties.$UserId = ""
+app.config.globalProperties.$UserName = ""
 // 앱 사용 설정
 app.use( router )
 // 앱 마운트
@@ -20,10 +23,10 @@ app.mount( '#app' )
 
 // 라우터 네비게이션 가드
 router.beforeEach((to, from, next) => {
-  let Global_SignInState = app.config.globalProperties.$SignInState
-  if( Global_SignInState ) {
+  if( app.config.globalProperties.$SignInState ) {
     LogManager.w( 'Router Event', 'beforeEach - 로그인', '이동경로', to.path )
-    next()
+    if( to.path === '/user/signin' ) router.replace( '/' )
+    else next()
   }
   else {
     if( to.path === '/user/signin' ) next()

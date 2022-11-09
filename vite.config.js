@@ -4,12 +4,14 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+  ],
   server: {
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://service.k-rf.co.kr',
+        target: 'http://order.k-rf.co.kr',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
         secure: false,
