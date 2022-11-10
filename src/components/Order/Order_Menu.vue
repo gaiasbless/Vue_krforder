@@ -1,9 +1,9 @@
 <template>
   <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 250px; min-width: 250px; background: #eae9e9">
     <div class="list-group">
-      <span v-bind:class="MenuState.Selected_Order ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 목록</span>
+      <span v-bind:class="MenuState.Selected_List ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 목록</span>
       <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
-      <span class="list-group-item list-group-item-action mt-1 menu_item">생산 목록</span>
+      <span v-bind:class="MenuState.Selected_Register ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'register' )">발주 등록</span>
     </div>
   </div>
 </template>
@@ -22,10 +22,13 @@
   let GLOBAL_PROPERTY = AppInstance.appContext.config.globalProperties
   // 내부변수 할당
   let MenuState_Selected = "list-group-item list-group-item-action list-group-item-primary fw-bold menu_item"
+  let MenuState_Selected_Margin = "list-group-item list-group-item-action list-group-item-primary fw-bold menu_item mt-2"
   let MenuState_Unselected = "list-group-item list-group-item-action menu_item"
+  let MenuState_Unselected_Margin = "list-group-item list-group-item-action menu_item mt-2"
   let MenuState = ref( {
-      Selected_Order: false,
+      Selected_OrderList: false,
       Selected_Release: false,
+      Selected_Order: false,
   } )
   // 이벤트 설정
   onMounted(() => {
@@ -40,14 +43,18 @@
   function DisplayLayout_MenuState() {
     let PageName = useRoute().params.PageName
     // LogManager.w( "Order_Menu", "DisplayLayout_MenuState", "PageName", PageName )
-    MenuState.value.Selected_Order = false
+    MenuState.value.Selected_List = false
     MenuState.value.Selected_Release = false
+    MenuState.value.Selected_Register = false
     switch( PageName ) {
       case "list":
-        MenuState.value.Selected_Order = true
+        MenuState.value.Selected_List = true
         break;
       case "release":
         MenuState.value.Selected_Release = true
+        break;
+      case "register":
+        MenuState.value.Selected_Register = true
         break;
     }
   }
@@ -87,5 +94,6 @@ a {
   font-size: 90%;
   padding-top: 10px;
   padding-bottom: 10px;
+  cursor: pointer;
 }
 </style>

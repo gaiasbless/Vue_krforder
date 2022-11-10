@@ -7,8 +7,9 @@
 
 <script setup>
   import Component_Order_Menu from '@/components/Order/Order_Menu.vue'
-  import Component_Order_OrderList from '@/components/Order/Order_OrderList.vue'
+  import Component_Order_List from '@/components/Order/Order_List.vue'
   import Component_Order_Release from '@/components/Order/Order_Release.vue'
+  import Component_Order_Register from '@/components/Order/Order_Register.vue'
 
   // 인스턴스 생성
   import { getCurrentInstance, ref, shallowRef, onMounted } from 'vue'
@@ -33,10 +34,13 @@
   function DisplayLaout_UpdateContent( UrlPageName ) {
     switch( UrlPageName ) {
       case "list":
-        Component_Content.value = Component_Order_OrderList
+        Component_Content.value = Component_Order_List
         break;
       case "release":
         Component_Content.value = Component_Order_Release
+        break;
+      case "register":
+        Component_Content.value = Component_Order_Register
         break;
     }
   }
