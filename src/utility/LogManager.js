@@ -9,19 +9,20 @@ export class LogManager {
   }
 
   static w( Type, Content1, Content2, Content3 ) {
+    const PageName = (typeof Type === "undefined") ? "" : "[" + Type + "] "
     if( this.DISPLAY_LOG ) {
       switch( arguments.length ) {
         case 1:
-          console.log( Type )
+          console.log( "%s", PageName )
           break;
         case 2:
-          console.log( '[' + Type + '] ' + Content1 )
+          console.log( "%s%s", PageName, Content1 )
           break;
         case 3:
-          console.log( '[' + Type + '] ' + Content1 + ' - ' + Content2 )
+          console.log( "%s%s - %s", PageName, Content1, Content2 )
           break;
         case 4:
-          console.log( '[' + Type + '] ' + Content1 + ' - ' + Content2 + ' : ' + Content3 )
+          console.log( "%s%s - %s : %s", PageName, Content1, Content2, Content3 )
           break;
       }
     }

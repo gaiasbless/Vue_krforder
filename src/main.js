@@ -25,10 +25,15 @@ app.mount( '#app' )
 router.beforeEach((to, from, next) => {
   if( app.config.globalProperties.$SignInState ) {
     LogManager.w( 'Router Event', 'beforeEach - 로그인', '이동경로', to.path )
+    // 라우터 이동
     if( to.path === '/user/signin' ) router.replace( '/' )
     else next()
   }
   else {
+    // Axios 헤더 데이터 초기화
+    delete axios.defaults.headers.common['userindex']
+    delete axios.defaults.headers.common['authorization']
+    // 라우터 이동
     if( to.path === '/user/signin' ) next()
     else {
       LogManager.w( 'Router Event', 'beforeEach - 로그아웃', '이동경로', to.path )

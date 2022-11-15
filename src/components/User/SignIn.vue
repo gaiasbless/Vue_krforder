@@ -61,6 +61,11 @@
         GLOBAL_PROPERTY.$SignInToken = response.data.SIGNIN_TOKEN
         GLOBAL_PROPERTY.$UserId = response.data.USER_ID
         GLOBAL_PROPERTY.$UserName = response.data.USER_NAME
+        // Axios 헤더 데이터 기록 - 리프레쉬 시점에 Axios 기본 데이터도 초기화 됨
+        if( typeof AxiosInstance.defaults.headers.common['userindex'] === 'undefined' ) {
+          AxiosInstance.defaults.headers.common['userindex'] = response.data.USER_ID
+          AxiosInstance.defaults.headers.common['authorization'] = response.data.SIGNIN_TOKEN
+        }
         router.replace( "/" )
         Emits( "Event_UpdateSignIn" );
       }
@@ -70,13 +75,14 @@
       }
     })
     .catch(ex => {
-      if( process.env.NODE_ENV === 'development' ) console.log('HTTP 호출 실패', ex)
+      LogManager.w( AppInstance?.type.__name, "API_GetOrderCompanyInfo()", "서버 요청 오류", ex )
     })
   }
 </script>
 
 <script>
 export default {
+  name: 'SignIn',
   data() {
     return {
     }

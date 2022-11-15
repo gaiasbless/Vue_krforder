@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 250px; min-width: 250px; background: #eae9e9">
+  <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 250px; min-width: 250px; background: #eae9e9;">
     <div class="list-group">
       <span v-bind:class="MenuState.Selected_List ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 목록</span>
       <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-  // 외부데이터 전달
+  // 외부데이터 반환
   const Emits = defineEmits( [ "Event_UpdateMenu" ] )
   // 인스턴스 생성
   import { getCurrentInstance, ref, shallowRef, onMounted } from 'vue'
@@ -65,7 +65,7 @@
 
 <script>
 export default {
-  name: 'Header_Base',
+  name: 'Order_Menu',
   data() {
     return {
     }
@@ -76,6 +76,9 @@ export default {
 </script>
 
 <style scoped>
+body {
+  position: fixed;
+}
 h1, h2 {
   font-weight: normal;
 }
