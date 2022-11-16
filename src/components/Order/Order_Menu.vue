@@ -1,7 +1,7 @@
 <template>
   <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 250px; min-width: 250px; background: #eae9e9;">
     <div class="list-group">
-      <span v-bind:class="MenuState.Selected_List ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 목록</span>
+      <span v-bind:class="MenuState.Selected_List ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 제품별 목록</span>
       <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
       <span v-bind:class="MenuState.Selected_Register ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'register' )">발주 등록</span>
     </div>

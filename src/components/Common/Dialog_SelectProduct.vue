@@ -31,7 +31,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="ProductInfo in ProductList" v-bind:key="ProductInfo.Code" v-on:click="Event_Click_SelectCompany( CompanyInfo.CompanyIndex, CompanyInfo.ManagerIndex )">
+              <tr v-for="ProductInfo in ProductList" v-bind:key="ProductInfo.Code" v-on:click="Event_Click_SelectProduct( ProductInfo.Code, ProductInfo.Name )">
                 <td class="text-center fw-bold">{{ ProductInfo.Code }}</td>
                 <td class="text-center fw-bold">{{ ProductInfo.Name }}</td>
                 <td class="text-center">{{ ProductInfo.Type }}</td>
@@ -55,7 +55,7 @@
 <script setup>
   // 외부데이터 전달
   const Props = defineProps({
-    RefreshCount:{ Type: Number },
+    OrderSequence:{ Type: Number },
   })
   // 외부데이터 반환
   const Emits = defineEmits( [ "Event_ReturnResult" ] )
@@ -91,7 +91,7 @@
     LogManager.w( AppInstance?.type.__name, "Watch", "SearchText", "NewValue => " + NewValue + " / OldValue => " + OldValue )
     setTimeout( function() {
       if( new Date().getTime() > PreviousTime + 800 ) {
-        if( SearchText.value.length == 0 ) ProductList.value = [{}]
+        if( SearchText.value.length == 0 ) ProductList.value = null
         else API_GetProductList()
       }
     }, 800 )
@@ -102,19 +102,15 @@
     DialogInstance = new bootstrap.Modal( "#DialogHandler", { focus: true, keyboard: true })
     // 부트스트랩 모달창 닫기 이벤트 핸틀러
     document.getElementById('DialogHandler').addEventListener('hidden.bs.modal', event => {
-      Emits( "Event_ReturnResult", "Result_SelectCompany", 0, 0 )
+      Emits( "Event_ReturnResult", "Result_SelectProduct", 0, "", "" )
     })
     DialogInstance.show()
     // 포커스 설정
     setTimeout( function() { Input_SearchText.value.focus() }, 500 )
   }
-  function Event_Click_SelectCompany( CompanyIndex, ManagerIndex ) {
+  function Event_Click_SelectProduct( ProductCode, ProductName ) {
     DialogInstance.hide()
-    Emits( "Event_ReturnResult", "Result_SelectProduct", CompanyIndex, ManagerIndex )
-  }
-
-  function UpdateProductList() {
-
+    Emits( "Event_ReturnResult", "Result_SelectProduct", Props.OrderSequence, ProductCode, ProductName )
   }
   // API 요청 - 제품 목록 수집
   function API_GetProductList() {

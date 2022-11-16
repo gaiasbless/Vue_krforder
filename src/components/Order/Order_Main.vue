@@ -1,7 +1,7 @@
 <template>
   <div class="h-100 d-flex flex-row" style="overflow-x: hidden;">
     <component style="position: fixed;" v-bind:is="Component_Order_Menu" v-bind:key="$route.fullPath" v-on:Event_UpdateMenu="DisplayLayout_UpdateMenu"></component>
-    <component style="margin-left: 250px" v-bind:is="Component_Content" v-bind:key="Component_Content"></component>
+    <component style="margin-left: 250px" v-bind:is="Component_Content" v-bind:key="Component_Content" v-on:Event_UpdateMenu="DisplayLayout_UpdateMenu"></component>
   </div>
 </template>
 

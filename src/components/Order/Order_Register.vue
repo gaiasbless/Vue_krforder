@@ -13,7 +13,7 @@
       등록된 전체 발주 목록이 출력 됩니다.
     </span>
 
-    <form class="px-4" style="width: 900px" v-on:submit.prevent="API_SignIn" autocomplete="off">
+    <form class="px-4" style="width: 900px" v-on:submit.prevent="API_RegisterOrderInfo" autocomplete="off">
       <div class="row mt-3 text-center">
         <span class="fs-2"><b>발&nbsp;&nbsp;&nbsp;&nbsp;주&nbsp;&nbsp;&nbsp;&nbsp;서</b></span>
       </div>
@@ -66,105 +66,274 @@
       <div class="row mt-2">
         <table class="border border-dark border-2">
           <tr>
-            <td class="table_title" style="width: 50px">순번</td>
-            <td class="table_title" style="width: 210px">제품코드</td>
-            <td class="table_title" style="width: 207px">제품명</td>
-            <td class="table_title" style="width: 180px">규격</td>
-            <td class="table_title" style="width: 90px">수량</td>
-            <td class="table_title">단위수량(롤)</td>
+            <td class="table_title table_col1" style="width: 40px">순번</td>
+            <td class="table_title table_col2" style="width: 210px">제품코드</td>
+            <td class="table_title table_col3">제품명</td>
+            <td class="table_title table_col4" style="width: 220px">규격</td>
+            <td class="table_title table_col5" style="width: 80px">총수량</td>
+            <td class="table_title table_col6" style="width: 70px">수량/롤</td>
+            <td class="table_title table_col7" style="width: 70px">수량/포장</td>
           </tr>
+          <!-- 제품 순번 1 -->
           <tr>
-            <td class="table_cell fw-bold" style="width: 50px" rowspan="3">1</td>
-            <td class="table_cell" style="width: 210px">
-              <input class="form-control table_input" id="Input_ProductCode" type="text" placeholder="제품코드 필수입력" v-model="OrderInfo.ProductCode_01" v-on:click="DisplayDialog_SelectProduct" readonly required/>
-            </td>
-            <td class="table_cell" style="width: 207px">
-              <input class="form-control table_input" id="Input_ProductName" type="text" placeholder="제품명 자동 입력" v-model="OrderInfo.ProductName_01" readonly required/>
-            </td>
-            <td class="table_cell" style="width: 180px">규격</td>
-            <td class="table_cell" style="width: 70px">
-              <input class="form-control table_input text-center" id="Input_ProductCode" type="text"  placeholder="수량 필수" v-model="OrderInfo.Quantity_01" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" required/>
+            <td class="table_cell fw-bold" rowspan="3">1</td>
+            <td class="table_cell">
+              <input class="form-control table_input" id="Input_ProductCode" type="text" placeholder="제품코드 필수입력" v-model="OrderInfo.ProductCode_01" v-on:click="DisplayDialog_SelectProduct( 1 )" v-on:keydown.prevent required/>
             </td>
             <td class="table_cell">
+              <input class="form-control table_input" id="Input_ProductName" type="text" placeholder="제품명 자동 입력" v-model="OrderInfo.ProductName_01" v-on:click="DisplayDialog_SelectProduct( 1 )" v-on:keydown.prevent required/>
+            </td>
+            <td class="table_cell">
+              <div class="row d-flex align-items-center">
+                <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
+                <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
+                <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
+              </div>
+            </td>
+            <td class="table_cell">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/>
+            </td>
+            <td class="table_cell">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Unit_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/>
+            </td>
+            <td class="table_cell">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Package_01" v-on:keydown.prevent required/>
             </td>
           </tr>
           <tr>
-            <td class="table_cell" colspan="5">
+            <td class="table_cell" colspan="6">
               <div class="row">
                 <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
                   <span>요청사항 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo.ProductCode"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo.RequestMessage_01"/>
                 </div>
               </div>
             </td>
           </tr>
           <tr>
-            <td class="table_cell" colspan="5">
+            <td class="table_cell" colspan="6">
               <div class="row">
                 <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.ProductCode"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_01"/>
                 </div>
               </div>
             </td>
           </tr>
         </table>
-        <!-- 추가 버튼 영역 -->
-        <div class="row mt-1 mb-1">
+        <!-- 추가 버튼 영역 1 -->
+        <div class="row mt-1 mb-1 ms-0">
           <div class="col text-center">
-            <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button">추가</button>
+            <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
+            data-bs-toggle="collapse" data-bs-target="#ProductLayer_02" aria-expanded="false" aria-controls="ProductLayer_02"
+            v-if="!OrderFromState.DisplayProduct2" v-on:click="OrderFromState.DisplayProduct2=true">추가</button>
           </div>
         </div>
       </div>
 
-      <div class="row">
+      <!-- 제품 순번 2 -->
+      <div class="row collapse" id="ProductLayer_02">
         <table>
           <tr>
-            <td class="table_cell fw-bold" style="width: 50px" rowspan="3">2</td>
-            <td class="table_cell" style="width: 210px">
-              <input class="form-control table_input" id="Input_ProductCode" type="text" placeholder="제품코드 필수입력" v-model="OrderInfo.ProductCode" required/>
+            <td class="table_cell fw-bold table_col1" rowspan="3">2</td>
+            <td class="table_cell table_col2">
+              <input class="form-control table_input" id="Input_ProductCode" type="text" placeholder="제품코드 필수입력" v-model="OrderInfo.ProductCode_02" v-on:click="DisplayDialog_SelectProduct( 2 )" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct2"/>
             </td>
-            <td class="table_cell" style="width: 207px">
-              <input class="form-control table_input" id="Input_ProductName" type="text" placeholder="제품명 자동 입력" v-model="OrderInfo.ProductName" readonly required/>
+            <td class="table_cell table_col3">
+              <input class="form-control table_input" id="Input_ProductName" type="text" placeholder="제품명 자동 입력" v-model="OrderInfo.ProductName_02" v-on:click="DisplayDialog_SelectProduct( 2 )" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct2"/>
             </td>
-            <td class="table_cell" style="width: 180px">규격</td>
-            <td class="table_cell" style="width: 70px">수량</td>
-            <td class="table_cell">단위수량(롤)</td>
+            <td class="table_cell table_col4">
+              <div class="row d-flex align-items-center">
+                <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct2"/></div>
+                <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/></div>
+                <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
+              </div>
+            </td>
+            <td class="table_cell table_col5">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/>
+            </td>
+            <td class="table_cell table_col6">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Unit_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/>
+            </td>
+            <td class="table_cell table_col7">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Package_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct2"/>
+            </td>
           </tr>
           <tr>
-            <td class="table_cell" colspan="5">
+            <td class="table_cell" colspan="6">
               <div class="row">
                 <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
-                  <span>요청사항</span>
+                  <span>요청사항 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo.ProductCode"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo.RequestMessage_02"/>
                 </div>
               </div>
             </td>
           </tr>
           <tr>
-            <td class="table_cell" colspan="5">
+            <td class="table_cell" colspan="6">
               <div class="row">
                 <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
-                  <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도</span>
+                  <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.ProductCode"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_02"/>
                 </div>
               </div>
             </td>
           </tr>
         </table>
-        <!-- 추가 삭제 버튼 영역 -->
-        <div class="row mt-1 mb-1">
+        <!-- 추가 삭제 버튼 영역 2 -->
+        <div class="row mt-1 mb-1 ms-0">
           <div class="col text-center">
-            <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button">추가</button>
-            <button class="btn btn-primary ms-1" style="width: 50px; padding: 3px; font-size: 90%;" type="button">삭제</button>
+            <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
+            data-bs-toggle="collapse" data-bs-target="#ProductLayer_03" aria-expanded="false" aria-controls="ProductLayer_03"
+            v-if="!OrderFromState.DisplayProduct3" v-on:click="OrderFromState.DisplayProduct3=true">추가</button>
+            <button class="btn btn-primary ms-1" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
+            data-bs-toggle="collapse" data-bs-target="#ProductLayer_02" aria-expanded="true" aria-controls="ProductLayer_02"
+            v-if="OrderFromState.DisplayProduct2 && !OrderFromState.DisplayProduct3" v-on:click="OrderFromState.DisplayProduct2=false">삭제</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 제품 순번 3 -->
+      <div class="row collapse" id="ProductLayer_03">
+        <table>
+          <tr>
+            <td class="table_cell fw-bold table_col1" rowspan="3">3</td>
+            <td class="table_cell table_col2">
+              <input class="form-control table_input" id="Input_ProductCode" type="text" placeholder="제품코드 필수입력" v-model="OrderInfo.ProductCode_03" v-on:click="DisplayDialog_SelectProduct( 3 )" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct3"/>
+            </td>
+            <td class="table_cell table_col3">
+              <input class="form-control table_input" id="Input_ProductName" type="text" placeholder="제품명 자동 입력" v-model="OrderInfo.ProductName_03" v-on:click="DisplayDialog_SelectProduct( 3 )" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct3"/>
+            </td>
+            <td class="table_cell table_col4">
+              <div class="row d-flex align-items-center">
+                <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct3"/></div>
+                <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/></div>
+                <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
+              </div>
+            </td>
+            <td class="table_cell table_col5">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/>
+            </td>
+            <td class="table_cell table_col6">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Unit_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/>
+            </td>
+            <td class="table_cell table_col7">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Package_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct3"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="table_cell" colspan="6">
+              <div class="row">
+                <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
+                  <span>요청사항 :</span>
+                </div>
+                <div class="col ms-0 ps-0">
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo.RequestMessage_03"/>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table_cell" colspan="6">
+              <div class="row">
+                <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
+                  <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
+                </div>
+                <div class="col ms-0 ps-0">
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_03"/>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <!-- 추가 삭제 버튼 영역 3 -->
+        <div class="row mt-1 mb-1 ms-0">
+          <div class="col text-center">
+            <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
+            data-bs-toggle="collapse" data-bs-target="#ProductLayer_04" aria-expanded="false" aria-controls="ProductLayer_04"
+            v-if="!OrderFromState.DisplayProduct4" v-on:click="OrderFromState.DisplayProduct4=true">추가</button>
+            <button class="btn btn-primary ms-1" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
+            data-bs-toggle="collapse" data-bs-target="#ProductLayer_03" aria-expanded="true" aria-controls="ProductLayer_03"
+            v-if="OrderFromState.DisplayProduct3 && !OrderFromState.DisplayProduct4" v-on:click="OrderFromState.DisplayProduct3=false">삭제</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 제품 순번 4 -->
+      <div class="row collapse" id="ProductLayer_04">
+        <table>
+          <tr>
+            <td class="table_cell fw-bold table_col1" rowspan="3">4</td>
+            <td class="table_cell table_col2">
+              <input class="form-control table_input" id="Input_ProductCode" type="text" placeholder="제품코드 필수입력" v-model="OrderInfo.ProductCode_04" v-on:click="DisplayDialog_SelectProduct( 4 )" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct4"/>
+            </td>
+            <td class="table_cell table_col3">
+              <input class="form-control table_input" id="Input_ProductName" type="text" placeholder="제품명 자동 입력" v-model="OrderInfo.ProductName_04" v-on:click="DisplayDialog_SelectProduct( 4 )" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct4"/>
+            </td>
+            <td class="table_cell table_col4">
+              <div class="row d-flex align-items-center">
+                <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct4"/></div>
+                <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/></div>
+                <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
+              </div>
+            </td>
+            <td class="table_cell table_col5">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/>
+            </td>
+            <td class="table_cell table_col6">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Unit_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/>
+            </td>
+            <td class="table_cell table_col7">
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo.Quantity_Package_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct4"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="table_cell" colspan="6">
+              <div class="row">
+                <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
+                  <span>요청사항 :</span>
+                </div>
+                <div class="col ms-0 ps-0">
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo.RequestMessage_04"/>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table_cell" colspan="6">
+              <div class="row">
+                <div class="col-md-auto ps-4 pe-1 d-flex align-items-center" style="font-size: 110%">
+                  <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
+                </div>
+                <div class="col ms-0 ps-0">
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_04"/>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <!-- 추가 삭제 버튼 영역 4 -->
+        <div class="row mt-1 mb-1 ms-0">
+          <div class="col text-center">
+            <button class="btn btn-primary ms-1" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
+            data-bs-toggle="collapse" data-bs-target="#ProductLayer_04" aria-expanded="true" aria-controls="ProductLayer_04"
+            v-on:click="OrderFromState.DisplayProduct4=false">삭제</button>
           </div>
         </div>
       </div>
@@ -180,7 +349,6 @@
           </tr>
         </table>
       </div>
-
       <!-- 비고 입력 -->
       <div class="row mt-3">
         <table style="min-height: 150px">
@@ -199,7 +367,7 @@
     </form>
 
     <!-- 다이얼로그 -->
-    <component v-bind:is="Component_Content" v-bind:key="Component_Content" v-on:Event_ReturnResult="Event_ReturnResult"></component>
+    <component v-bind:is="Component_Content" v-bind:OrderSequence="OrderSequence" v-bind:key="Component_Content" v-on:Event_ReturnResult="Event_ReturnResult"></component>
   </div>
 
 </template>
@@ -208,8 +376,12 @@
   import '@vuepic/vue-datepicker/dist/main.css'
   import Dialog_SelectCompany from '@/components/Common/Dialog_SelectCompany.vue'
   import Dialog_SelectProduct from '@/components/Common/Dialog_SelectProduct.vue'
+
+  // 외부데이터 반환
+  const Emits = defineEmits( [ "Event_UpdateMenu" ] )
   // 인스턴스 생성
-  import { getCurrentInstance, ref, shallowRef, onMounted, onBeforeUnmount } from 'vue'
+  import { getCurrentInstance, ref, shallowRef, onMounted, onBeforeUnmount, watch } from 'vue'
+  import router from '@/router'
   import moment from 'moment'
   import LogManager from '@/utility/LogManager'
   import Datepicker from '@vuepic/vue-datepicker'
@@ -223,6 +395,13 @@
   let Component_Content = shallowRef( null )
   let OrderCompanyInfo = ref( [{}] )
   let ReceiveCompanyInfo = ref( [{}] )
+  let OrderSequence = ref( 0 )
+  let OrderFromState = ref( {
+    DisplayProduct1: true,
+    DisplayProduct2: false,
+    DisplayProduct3: false,
+    DisplayProduct4: false,
+  } )
   let OrderInfo = ref( {
     OrderCompanyIndex: 0,
     ReceiveCompanyIndex: 0,
@@ -234,9 +413,41 @@
     Dimenstion_Width_01: 0,
     Dimenstion_Height_01: 0,
     RequestMessage_01: "",
-    Quantity_01: null,
-    Quantity_Unit_01: "",
+    Quantity_01: 0,
+    Quantity_Unit_01: 0,
+    Quantity_Package_01: 0,
+    NoticeInfo_01: "",
     Purpose_01: "",
+    ProductCode_02: "",
+    ProductName_02: "",
+    Dimenstion_Width_02: 0,
+    Dimenstion_Height_02: 0,
+    RequestMessage_02: "",
+    Quantity_02: 0,
+    Quantity_Unit_02: 0,
+    Quantity_Package_02: 0,
+    NoticeInfo_02: "",
+    Purpose_02: "",
+    ProductCode_03: "",
+    ProductName_03: "",
+    Dimenstion_Width_03: 0,
+    Dimenstion_Height_03: 0,
+    RequestMessage_03: "",
+    Quantity_03: 0,
+    Quantity_Unit_03: 0,
+    Quantity_Package_03: 0,
+    NoticeInfo_03: "",
+    Purpose_03: "",
+    ProductCode_04: "",
+    ProductName_04: "",
+    Dimenstion_Width_04: 0,
+    Dimenstion_Height_04: 0,
+    RequestMessage_04: "",
+    Quantity_04: 0,
+    Quantity_Unit_04: 0,
+    Quantity_Package_04: 0,
+    NoticeInfo_04: "",
+    Purpose_04: "",
     RequestDeliverDate: "",
     ExtraMessage: ""
   } )
@@ -249,6 +460,27 @@
     LogManager.w( "Order_Register", 'onBeforeUnmount()' )
     Component_Content.value = null
   })
+  // 감시자
+  watch(() => [OrderInfo.value.Quantity_01, OrderInfo.value.Quantity_Unit_01], ( NewValue, OldValue ) => {
+    LogManager.w( "Order_Register", "Watch", "Quantity_01 : " + NewValue[0] + " / Quantity_Unit_01 : " + NewValue[1] )
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_01 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    else OrderInfo.value.Quantity_Package_01 = 0
+  })
+  watch(() => [OrderInfo.value.Quantity_02, OrderInfo.value.Quantity_Unit_02], ( NewValue, OldValue ) => {
+    LogManager.w( "Order_Register", "Watch", "Quantity_02 : " + NewValue[0] + " / Quantity_Unit_02 : " + NewValue[1] )
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_02 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    else OrderInfo.value.Quantity_Package_02 = 0
+  })
+  watch(() => [OrderInfo.value.Quantity_03, OrderInfo.value.Quantity_Unit_03], ( NewValue, OldValue ) => {
+    LogManager.w( "Order_Register", "Watch", "Quantity_03 : " + NewValue[0] + " / Quantity_Unit_03 : " + NewValue[1] )
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_03 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    else OrderInfo.value.Quantity_Package_03 = 0
+  })
+  watch(() => [OrderInfo.value.Quantity_04, OrderInfo.value.Quantity_Unit_04], ( NewValue, OldValue ) => {
+    LogManager.w( "Order_Register", "Watch", "Quantity_04 : " + NewValue[0] + " / Quantity_Unit_04 : " + NewValue[1] )
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_04 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    else OrderInfo.value.Quantity_Package_04 = 0
+  })
   // 레이아웃 출력 - 기본
   function DisplayLayout_Default() {
     // API 요청 - 발주회사 정보 수집
@@ -256,13 +488,39 @@
     // API 요청 - 수신회사 정보 수집 (기본값 코리아 라벨, 김영민 과장 적용)
     API_GetReceiveCompanyInfo( 2, 2 )
   }
+  // 레이아웃 출력 - 제품선택 출력
+  function DisplayLayout_SelectProduct( Sequece, ProductCode, ProductName ) {
+    switch( Sequece ) {
+      case 1:
+        OrderInfo.value.ProductCode_01 = ProductCode
+        OrderInfo.value.ProductName_01 = ProductName
+        break;
+      case 2:
+        OrderInfo.value.ProductCode_02 = ProductCode
+        OrderInfo.value.ProductName_02 = ProductName
+        break;
+      case 3:
+        OrderInfo.value.ProductCode_03 = ProductCode
+        OrderInfo.value.ProductName_03 = ProductName
+        break;
+      case 4:
+        OrderInfo.value.ProductCode_04 = ProductCode
+        OrderInfo.value.ProductName_04 = ProductName
+        break;
+    }
+  }
   // 다이얼로그 출력 - 업체선택
   function DisplayDialog_SelectCompany() {
     Component_Content.value = Dialog_SelectCompany
   }
   // 다이얼로그 출력 - 제품선택
-  function DisplayDialog_SelectProduct() {
+  function DisplayDialog_SelectProduct( Sequence ) {
+    OrderSequence.value = Sequence
     Component_Content.value = Dialog_SelectProduct
+  }
+  // 입력제한 - 전체
+  function InputLimit_Prevent( Event ) {
+    Event.preventDefault()
   }
   // 입력제한 - 숫자만
   function InputLimit_OnlyNumber( Event ) {
@@ -271,12 +529,15 @@
     else Event.preventDefault()
   }
   // 업체선택 결과 반영
-  function Event_ReturnResult( ResultType, Value1, Value2 ) {
-    LogManager.w( "Order_Register", "Event_ReturnResult" ,"반환데이터", ResultType + " / " + Value1 + " / " + Value2 )
+  function Event_ReturnResult( ResultType, Value1, Value2, Value3 ) {
+    LogManager.w( "Order_Register", "Event_ReturnResult" ,"반환데이터", ResultType + " / " + Value1 + " / " + Value2 + " / " + Value3 )
     if( ResultType === "Result_SelectCompany" ) {
       if( Value1 > 0 && Value2 > 0 ) API_GetReceiveCompanyInfo( Value1, Value2 )
-      Component_Content.value = null
     }
+    else if( ResultType === "Result_SelectProduct" ) {
+      if( Value1 > 0 ) DisplayLayout_SelectProduct( Value1, Value2, Value3 )
+    }
+    Component_Content.value = null
   }
   // API 요청 - 발주회사 정보 수집
   function API_GetOrderCompanyInfo() {
@@ -288,6 +549,7 @@
       LogManager.w( AppInstance?.type.__name, "API_GetOrderCompanyInfo()", "Result", JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {
         OrderCompanyInfo.value = response.data.data
+        OrderInfo.value.OrderCompanyIndex = response.data.data[0].idx
       }
       else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
@@ -315,6 +577,83 @@
     .catch(ex => {
       LogManager.w( AppInstance?.type.__name, "API_GetReceiveCompanyInfo()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+    })
+  }
+  // API 요청 - 발주서 등록
+  function API_RegisterOrderInfo() {
+    var PostParams = new URLSearchParams();
+    PostParams.append( 'ORDER_COMPANY_INDEX', OrderInfo.value.OrderCompanyIndex )
+    PostParams.append( 'RECEIVE_COMPANY_INDEX', OrderInfo.value.ReceiveCompanyIndex )
+    PostParams.append( 'RECEIVE_MANAGER_INDEX', OrderInfo.value.ReceiveManagerIndex )
+    PostParams.append( 'ORDER_TYPE', 2 )  // 외부발주 2 고정값
+    PostParams.append( 'ORDER_NUMBER', ReceiveCompanyInfo.value[0].OrderNumber )
+    PostParams.append( 'ORDER_DATE', OrderInfo.value.OrderDate )
+    if( OrderFromState.value.DisplayProduct1 ) {
+      PostParams.append( 'PRODUCT_CODE_01', OrderInfo.value.ProductCode_01 )
+      PostParams.append( 'PRODUCT_NAME_01', OrderInfo.value.ProductName_01 )
+      PostParams.append( 'DIMENSION_WIDTH_01', OrderInfo.value.Dimenstion_Width_01 )
+      PostParams.append( 'DIMENSION_HEIGHT_01', OrderInfo.value.Dimenstion_Height_01 )
+      PostParams.append( 'QUANTITY_01', OrderInfo.value.Quantity_01 )
+      PostParams.append( 'QUANTITY_UNIT_01', OrderInfo.value.Quantity_Unit_01 )
+      PostParams.append( 'REQUEST_MESSAGE_01', OrderInfo.value.RequestMessage_01 )
+      PostParams.append( 'PURPOSE_01', OrderInfo.value.Purpose_01 )
+    }
+    if( OrderFromState.value.DisplayProduct2 ) {
+      PostParams.append( 'PRODUCT_CODE_02', OrderInfo.value.ProductCode_02 )
+      PostParams.append( 'PRODUCT_NAME_02', OrderInfo.value.ProductName_02 )
+      PostParams.append( 'DIMENSION_WIDTH_02', OrderInfo.value.Dimenstion_Width_02 )
+      PostParams.append( 'DIMENSION_HEIGHT_02', OrderInfo.value.Dimenstion_Height_02 )
+      PostParams.append( 'QUANTITY_02', OrderInfo.value.Quantity_02 )
+      PostParams.append( 'QUANTITY_UNIT_02', OrderInfo.value.Quantity_Unit_02 )
+      PostParams.append( 'REQUEST_MESSAGE_02', OrderInfo.value.RequestMessage_02 )
+      PostParams.append( 'PURPOSE_02', OrderInfo.value.Purpose_02 )
+    }
+    if( OrderFromState.value.DisplayProduct3 ) {
+      PostParams.append( 'PRODUCT_CODE_03', OrderInfo.value.ProductCode_03 )
+      PostParams.append( 'PRODUCT_NAME_03', OrderInfo.value.ProductName_03 )
+      PostParams.append( 'DIMENSION_WIDTH_03', OrderInfo.value.Dimenstion_Width_03 )
+      PostParams.append( 'DIMENSION_HEIGHT_03', OrderInfo.value.Dimenstion_Height_03 )
+      PostParams.append( 'QUANTITY_03', OrderInfo.value.Quantity_03 )
+      PostParams.append( 'QUANTITY_UNIT_03', OrderInfo.value.Quantity_Unit_03 )
+      PostParams.append( 'REQUEST_MESSAGE_03', OrderInfo.value.RequestMessage_03 )
+      PostParams.append( 'PURPOSE_03', OrderInfo.value.Purpose_03 )
+    }
+    if( OrderFromState.value.DisplayProduct4 ) {
+      PostParams.append( 'PRODUCT_CODE_04', OrderInfo.value.ProductCode_04 )
+      PostParams.append( 'PRODUCT_NAME_04', OrderInfo.value.ProductName_04 )
+      PostParams.append( 'DIMENSION_WIDTH_04', OrderInfo.value.Dimenstion_Width_04 )
+      PostParams.append( 'DIMENSION_HEIGHT_04', OrderInfo.value.Dimenstion_Height_04 )
+      PostParams.append( 'QUANTITY_04', OrderInfo.value.Quantity_04 )
+      PostParams.append( 'QUANTITY_UNIT_04', OrderInfo.value.Quantity_Unit_04 )
+      PostParams.append( 'REQUEST_MESSAGE_04', OrderInfo.value.RequestMessage_04 )
+      PostParams.append( 'PURPOSE_04', OrderInfo.value.Purpose_04 )
+    }
+    PostParams.append( 'REQUEST_DELIVER_DATE', moment( OrderInfo.value.RequestDeliverDate, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) )
+    PostParams.append( 'EXTRA_MESSAGE', OrderInfo.value.ExtraMessage )
+    LogManager.w( AppInstance?.type.__name, "API_RegisterOrderInfo()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Order/Register/RegisterOrderInfo.php", PostParams )
+    .then(response => {
+      LogManager.w( AppInstance?.type.__name, "API_RegisterOrderInfo()", "Result", JSON.stringify( response.data ) )
+      if( response.data.success > 0 ) {
+        alert( "발주서 등록이 완료 되었습니다." )
+        Emits( "Event_UpdateMenu", "list" )
+      }
+      else if( response.data.success == -10 ) {
+        alert( "발주서 등록 권한이 없습니다." )
+        Emits( "Event_UpdateMenu", "list" )
+      }
+      else if( response.data.success == -1000 ) {
+        alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )
+        GLOBAL_PROPERTY.$SignInState = false
+        router.push( "/" )
+      }
+      else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+    })
+    .catch(ex => {
+      LogManager.w( AppInstance?.type.__name, "API_RegisterOrderInfo()", "서버 요청 오류", ex )
+      alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+      LogManager.w( AppInstance?.type.__name, "Route" )
+      Emits( "Event_UpdateMenu", "list" )
     })
   }
 </script>
@@ -377,8 +716,6 @@ table td {
   border: 2px solid black;
 }
 .table_cell {
-  /* padding-top: 3px; */
-  /* padding-bottom: 3px; */
   font-size: 85%;
   text-align: center;
   border: 2px solid black;
@@ -390,6 +727,13 @@ table td {
     color: red;
   }
 }
+.table_col1 { width: 40px }
+.table_col2 { width: 210px }
+.table_col3 { }
+.table_col4 { width: 220px }
+.table_col5 { width: 80px }
+.table_col6 { width: 70px }
+.table_col7 { width: 70px }
 input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #9bb7ff;
   opacity: 1; /* Firefox */
