@@ -1,8 +1,9 @@
 <template>
   <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 250px; min-width: 250px; background: #eae9e9;">
     <div class="list-group">
-      <span v-bind:class="MenuState.Selected_List ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 제품별 목록</span>
-      <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
+      <span v-bind:class="MenuState.Selected_OrderProductList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 제품 목록</span>
+      <span v-bind:class="MenuState.Selected_OrderRegisterList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'reglist' )">발주서 목록</span>
+      <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
       <span v-bind:class="MenuState.Selected_Register ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'register' )">발주 등록</span>
     </div>
   </div>
@@ -26,7 +27,8 @@
   let MenuState_Unselected = "list-group-item list-group-item-action menu_item"
   let MenuState_Unselected_Margin = "list-group-item list-group-item-action menu_item mt-2"
   let MenuState = ref( {
-      Selected_OrderList: false,
+      Selected_OrderProductList: false,
+      Selected_OrderRegisterList: false,
       Selected_Release: false,
       Selected_Order: false,
   } )
@@ -43,12 +45,16 @@
   function DisplayLayout_MenuState() {
     let PageName = useRoute().params.PageName
     // LogManager.w( "Order_Menu", "DisplayLayout_MenuState", "PageName", PageName )
-    MenuState.value.Selected_List = false
+    MenuState.value.Selected_OrderProductList = false
+    MenuState.value.Selected_OrderRegisterList = false
     MenuState.value.Selected_Release = false
     MenuState.value.Selected_Register = false
     switch( PageName ) {
       case "list":
-        MenuState.value.Selected_List = true
+        MenuState.value.Selected_OrderProductList = true
+        break;
+      case "reglist":
+        MenuState.value.Selected_OrderRegisterList = true
         break;
       case "release":
         MenuState.value.Selected_Release = true

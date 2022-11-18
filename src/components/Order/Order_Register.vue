@@ -59,7 +59,7 @@
           <span class="mt-0 me-4 order_text_small" v-if="ReceiveCompanyInfo[0].Fax !== null">팩스: {{ ReceiveCompanyInfo[0].Fax }}</span>
           <span class="mt-3 me-4 fw-bold">담당자 : {{ ReceiveCompanyInfo[0].ManagerName }}</span>
           <span class="mt-0 me-4 order_text_small">휴대전화: {{ ReceiveCompanyInfo[0].MobilePhone }}</span>
-          <span class="mt-0 ms-4 order_text_small">이메일: {{ ReceiveCompanyInfo[0].Email }}</span>
+          <span class="mt-0 me-4 order_text_small" v-if="ReceiveCompanyInfo[0].Email !== null">이메일: {{ ReceiveCompanyInfo[0].Email }}</span>
         </div>
       </div>
 
@@ -410,43 +410,40 @@
     OrderDate_Display: moment( new Date(), "YYYY-MM-DD", true ).format( "YYYY년 M월 D일" ),
     ProductCode_01: "",
     ProductName_01: "",
-    Dimenstion_Width_01: 0,
-    Dimenstion_Height_01: 0,
-    RequestMessage_01: "",
-    Quantity_01: 0,
-    Quantity_Unit_01: 0,
+    Dimenstion_Width_01: null,
+    Dimenstion_Height_01: null,
+    Quantity_01: null,
+    Quantity_Unit_01: null,
     Quantity_Package_01: 0,
-    NoticeInfo_01: "",
+    RequestMessage_01: "",
     Purpose_01: "",
     ProductCode_02: "",
     ProductName_02: "",
-    Dimenstion_Width_02: 0,
-    Dimenstion_Height_02: 0,
+    Dimenstion_Width_02: null,
+    Dimenstion_Height_02: null,
     RequestMessage_02: "",
-    Quantity_02: 0,
-    Quantity_Unit_02: 0,
+    Quantity_02: null,
+    Quantity_Unit_02: null,
     Quantity_Package_02: 0,
     NoticeInfo_02: "",
     Purpose_02: "",
     ProductCode_03: "",
     ProductName_03: "",
-    Dimenstion_Width_03: 0,
-    Dimenstion_Height_03: 0,
-    RequestMessage_03: "",
-    Quantity_03: 0,
-    Quantity_Unit_03: 0,
+    Dimenstion_Width_03: null,
+    Dimenstion_Height_03: null,
+    Quantity_03: null,
+    Quantity_Unit_03: null,
     Quantity_Package_03: 0,
-    NoticeInfo_03: "",
+    RequestMessage_03: "",
     Purpose_03: "",
     ProductCode_04: "",
     ProductName_04: "",
-    Dimenstion_Width_04: 0,
-    Dimenstion_Height_04: 0,
-    RequestMessage_04: "",
-    Quantity_04: 0,
-    Quantity_Unit_04: 0,
+    Dimenstion_Width_04: null,
+    Dimenstion_Height_04: null,
+    Quantity_04: null,
+    Quantity_Unit_04: null,
     Quantity_Package_04: 0,
-    NoticeInfo_04: "",
+    RequestMessage_04: "",
     Purpose_04: "",
     RequestDeliverDate: "",
     ExtraMessage: ""
@@ -551,6 +548,15 @@
         OrderCompanyInfo.value = response.data.data
         OrderInfo.value.OrderCompanyIndex = response.data.data[0].idx
       }
+      else if( response.data.success == -10 ) {
+        alert( "발주서 등록 권한이 없습니다." )
+        Emits( "Event_UpdateMenu", "list" )
+      }
+      else if( response.data.success == -1000 ) {
+        alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )
+        GLOBAL_PROPERTY.$SignInState = false
+        router.push( "/" )
+      }
       else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
     .catch(ex => {
@@ -571,6 +577,15 @@
         ReceiveCompanyInfo.value = response.data.data
         OrderInfo.value.ReceiveCompanyIndex = response.data.data[0].idx
         OrderInfo.value.ReceiveManagerIndex = response.data.data[0].ManagerIndex
+      }
+      else if( response.data.success == -10 ) {
+        alert( "발주서 등록 권한이 없습니다." )
+        Emits( "Event_UpdateMenu", "list" )
+      }
+      else if( response.data.success == -1000 ) {
+        alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )
+        GLOBAL_PROPERTY.$SignInState = false
+        router.push( "/" )
       }
       else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
@@ -652,7 +667,6 @@
     .catch(ex => {
       LogManager.w( AppInstance?.type.__name, "API_RegisterOrderInfo()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
-      LogManager.w( AppInstance?.type.__name, "Route" )
       Emits( "Event_UpdateMenu", "list" )
     })
   }

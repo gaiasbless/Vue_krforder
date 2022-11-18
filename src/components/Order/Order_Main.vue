@@ -7,7 +7,8 @@
 
 <script setup>
   import Component_Order_Menu from '@/components/Order/Order_Menu.vue'
-  import Component_Order_List from '@/components/Order/Order_List.vue'
+  import Component_Order_ProductList from '@/components/Order/Order_ProductList.vue'
+  import Component_Order_RegisterList from '@/components/Order/Order_RegisterList.vue'
   import Component_Order_Release from '@/components/Order/Order_Release.vue'
   import Component_Order_Register from '@/components/Order/Order_Register.vue'
   // 인스턴스 생성
@@ -38,7 +39,10 @@
   function DisplayLaout_UpdateContent( UrlPageName ) {
     switch( UrlPageName ) {
       case "list":
-        if( Component_Content.value != Component_Order_List ) Component_Content.value = Component_Order_List
+        if( Component_Content.value != Component_Order_ProductList ) Component_Content.value = Component_Order_ProductList
+        break;
+      case "reglist":
+        if( Component_Content.value != Component_Order_RegisterList ) Component_Content.value = Component_Order_RegisterList
         break;
       case "release":
         Component_Content.value = Component_Order_Release

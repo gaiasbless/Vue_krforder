@@ -15,8 +15,9 @@
           <div class="col-md-auto d-flex align-items-center justify-content-cente">
             제품 검색
           </div>
-          <div class="col ms-0 ps-0">
+          <div class="col input-group ms-0 ps-0">
             <input class="form-control table_input" ref="Input_SearchText" id="Input_SearchText" type="text" placeholder="제품코드 또는 제품명 입력" v-on:input="SearchText=$event.target.value" autocomplete="off" autofocus/>
+            <span class="input-group-text"><img src="@bootstrap-icons/icons/search.svg" width="18" height="18"></span>
           </div>
         </div>
 
@@ -90,11 +91,11 @@
   watch( SearchText, ( NewValue, OldValue ) => {
     LogManager.w( AppInstance?.type.__name, "Watch", "SearchText", "NewValue => " + NewValue + " / OldValue => " + OldValue )
     setTimeout( function() {
-      if( new Date().getTime() > PreviousTime + 800 ) {
+      if( new Date().getTime() > PreviousTime + 550 ) {
         if( SearchText.value.length == 0 ) ProductList.value = null
         else API_GetProductList()
       }
-    }, 800 )
+    }, 600 )
     PreviousTime = new Date().getTime()
   } )
   // 레이아웃 출력 - 기본
