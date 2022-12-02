@@ -1,4 +1,5 @@
 import SignIn from '@/components/User/SignIn.vue'
+import UserInfo from '@/components/User/UserInfo.vue'
 import Home from '@/components/Home/Home.vue'
 import Order_Main from '@/components/Order/Order_Main.vue'
 
@@ -14,6 +15,11 @@ const routes = [
     path: "/user/signin",
     name: 'SignIn',
     component: SignIn,
+  },
+  {
+    path: "/user/info",
+    name: 'UserInfo',
+    component: UserInfo,
   },
   {
     path: "/order/:PageName",

@@ -31,7 +31,7 @@
         <button type="button" class="btn btn-sm btn-outline-secondary ms-1" v-on:click="DatePicker_Month">이번달</button>
       </div>
       <div class="col d-flex align-items-center justify-content-end">
-        <button style="width: 70px" type="button" class="btn btn-sm btn-outline-secondary" v-on:click="PrintMainContent" block>인쇄</button>
+        <!-- <button style="width: 70px" type="button" class="btn btn-sm btn-outline-secondary" v-on:click="PrintMainContent" block>인쇄</button> -->
       </div>
     </div>
 
@@ -54,17 +54,17 @@
         </thead>
         <tbody>
           <tr v-for="OrderInfo in OrderList" v-bind:key="OrderInfo.idx" v-on:click="DisplayOrderModify( OrderInfo.idx )">
-              <td class="text-center align-middle">{{ OrderInfo.SerialNumber }} </td>
-              <td class="text-center align-middle">{{ OrderInfo.OrderType }} </td>
-              <td class="text-center align-middle">{{ OrderInfo.ProductName }} </td>
+              <td class="text-center align-middle">{{ OrderInfo.SerialNumber }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.ProductName }}</td>
               <td class="text-center align-middle">{{ NumberFormat( OrderInfo.Quantity ) }}</td>
-              <td class="text-center align-middle">{{ NumberFormat( OrderInfo.Quantity_Unit ) }} </td>
-              <td class="text-center align-middle">{{ OrderInfo.Order_Name }} </td>
-              <td class="text-center align-middle">{{ OrderInfo.Order_Company }} </td>
+              <td class="text-center align-middle">{{ NumberFormat( OrderInfo.Quantity_Unit ) }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.Order_Name }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.Order_Company }}</td>
               <td class="text-center align-middle">{{ OrderInfo.WorkerName }}</td>
-              <td class="text-center align-middle text-danger">{{ OrderInfo.State }} </td>
-              <td class="text-center align-middle">{{ OrderInfo.ProcessTime }} </td>
-              <td class="text-center align-middle">{{ OrderInfo.RegisterTime }} </td>
+              <td class="text-center align-middle text-danger">{{ OrderInfo.State }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.ProcessTime }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.RegisterTime }}</td>
           </tr>
         </tbody>
       </table>
@@ -131,11 +131,11 @@
   }
   // 숫자 포맷 설정 (구분자 콤마 표시)
   function NumberFormat( Number ) {
-    return String( Number ).replace( /\B(?=(\d{3})+(?!\d))/g, "," );
+    return String( Number ).replace( /\B(?=(\d{3})+(?!\d))/g, "," )
   }
   // API 요청 - 발주 제품 목록
   function API_GetOrderProductList() {
-    var PostParams = new URLSearchParams();
+    var PostParams = new URLSearchParams()
     PostParams.append( 'START_DATE', moment( DataPicker_Start.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
     PostParams.append( 'FINISH_DATE', moment( DataPicker_Finish.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
     LogManager.w( AppInstance?.type.__name, "API_GetOrderProductList()", "Parameter", PostParams.toString() )

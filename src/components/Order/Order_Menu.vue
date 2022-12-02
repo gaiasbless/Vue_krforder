@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 250px; min-width: 250px; background: #eae9e9;">
+  <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 230px; min-width: 230px; background: #eae9e9;">
     <div class="list-group">
       <span v-bind:class="MenuState.Selected_OrderProductList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 제품 목록</span>
       <span v-bind:class="MenuState.Selected_OrderRegisterList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'reglist' )">발주서 목록</span>

@@ -2,7 +2,7 @@
   <div container-fluid class="h-100 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
     <div class="row w-100 h-100 d-flex flex-nowrap">
       <div class="col-8">
-        {{ GLOBAL_PROPERTY.$UserName }}
+
       </div>
     </div>
   </div>

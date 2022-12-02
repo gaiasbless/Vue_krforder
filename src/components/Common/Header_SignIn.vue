@@ -11,13 +11,13 @@
         <li class="nav-item">
           <router-link class="nav-link active" aria-current="page" v-bind:to="{ name: 'Order_Main', params: { PageName: 'list' }}">발주관리</router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/user/signin">재고관리</router-link>
-        </li>
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a href="" class="nav-link active" v-on:click="SetSignOutState" style="font-size: 95%;">로그아웃</a>
+          <router-link class="nav-link active" aria-current="page" to="/user/info" style="font-size: 90%;">정보수정({{ GLOBAL_PROPERTY.$UserName }})</router-link>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link active" v-on:click="SetSignOutState" style="font-size: 90%;">로그아웃</a>
         </li>
       </ul>
     </nav>
