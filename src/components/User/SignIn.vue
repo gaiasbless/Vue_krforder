@@ -13,6 +13,9 @@
       <div class="row mt-2">
         <button class="btn btn-outline-primary" type="submit">로그인</button>
       </div>
+      <div class="row mt-2">
+        <button class="btn btn-outline-primary" type="button" v-on:click="router.replace( '/user/signup' )">회원가입</button>
+      </div>
     </form>
     <!-- 다이얼로그 -->
     <Dialog_Alert Title="로그인 실패" Message="계정 또는 비밀번호가 일치하지 않습니다."/>
@@ -55,7 +58,7 @@
     LogManager.w( AppInstance?.type.__name, "API_SignIn()", "Parameter", PostParams.toString() )
     AxiosInstance.post( "/api/Users/SignIn.php", PostParams )
     .then(response => {
-      if( process.env.NODE_ENV === 'development' ) console.log( 'Http Result - API_SignIn() - Result : ' + JSON.stringify( response.data ) )
+      LogManager.w( AppInstance?.type.__name, "API_SignIn()", "Result", JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {
         GLOBAL_PROPERTY.$SignInState = true
         GLOBAL_PROPERTY.$SignInToken = response.data.SIGNIN_TOKEN

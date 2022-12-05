@@ -44,7 +44,7 @@
             <th class="text-center align-middle" scope="col">품명</th>
             <th class="text-center align-middle" scope="col">수량</th>
             <th class="text-center align-middle" scope="col">단위수량</th>
-            <th class="text-center align-middle" scope="col">발주자</th>
+            <th class="text-center align-middle" scope="col">주문</th>
             <th class="text-center align-middle" scope="col">발주처</th>
             <th class="text-center align-middle" scope="col">작업자</th>
             <th class="text-center align-middle" scope="col">진행상태</th>

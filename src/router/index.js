@@ -1,4 +1,5 @@
 import SignIn from '@/components/User/SignIn.vue'
+import SignUp from '@/components/User/SignUp.vue'
 import UserInfo from '@/components/User/UserInfo.vue'
 import Home from '@/components/Home/Home.vue'
 import Order_Main from '@/components/Order/Order_Main.vue'
@@ -15,6 +16,11 @@ const routes = [
     path: "/user/signin",
     name: 'SignIn',
     component: SignIn,
+  },
+  {
+    path: "/user/signup",
+    name: 'SignUp',
+    component: SignUp,
   },
   {
     path: "/user/info",

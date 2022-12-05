@@ -11,7 +11,7 @@
 
     <ul class="navbar-nav ms-auto" style="padding-bottom: 2px">
       <li class="nav-item">
-        <!-- <router-link class="nav-link active" aria-current="page" to="/user/signin" v-if="RouterInstance.path !== '/user/signin'">회원가입</router-link> -->
+        <router-link class="nav-link active" aria-current="page" to="/user/signup">회원가입</router-link>
       </li>
     </ul>
   </nav>

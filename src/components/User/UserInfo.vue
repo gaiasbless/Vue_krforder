@@ -4,7 +4,7 @@
 
         <form class="col-8 mt-5" v-on:submit.prevent="API_ModifyUserInfo" autocomplete="off">
           <div class="row">
-            <span class="fs-4 text-primary text-center"><b>회원 정보 수정</b></span>
+            <span class="fs-4 text-black text-center"><b>회원 정보 수정</b></span>
           </div>
           <div class="row mt-1 mx-0">
             <div class="col px-0">
@@ -12,21 +12,21 @@
                 <div class="col-3 bg-light d-flex align-items-center justify-content-center">
                   <span class="fw-bold table_title">계정</span>
                 </div>
-                <div class="col p-2">{{ UserInfo.Account }}</div>
+                <div class="col p-2 text-secondary">{{ UserInfo.Account }}</div>
               </div>
 
               <div class="row border-bottom mx-0">
                 <div class="col-3 bg-light d-flex align-items-center justify-content-center">
                   <span class="fw-bold table_title">사용자명</span>
                 </div>
-                <div class="col p-2">{{ UserInfo.UserName }}</div>
+                <div class="col p-2 text-secondary">{{ UserInfo.UserName }}</div>
               </div>
 
               <div class="row border-bottom mx-0">
                 <div class="col-3 bg-light d-flex align-items-center justify-content-center">
                   <span class="fw-bold table_title">회사명</span>
                 </div>
-                <div class="col p-2">{{ UserInfo.CompanyName }}</div>
+                <div class="col p-2 text-secondary">{{ UserInfo.CompanyName }}</div>
               </div>
 
               <div class="row border-bottom mx-0">
@@ -58,7 +58,7 @@
 
               <div class="row border-bottom mx-0">
                 <div class="col-3 bg-light d-flex align-items-center justify-content-center">
-                  <span class="fw-bold table_title">휴대폰번호</span>
+                  <span class="fw-bold table_title">휴대전화 번호</span>
                 </div>
                 <div class="col px-0 py-1">
                   <input class="form-control table_input" id="Input_UserInfo_MobilePhone" type="text" v-model="UserInfo.MobilePhone" v-on:keydown.enter.prevent="" required/>
@@ -69,7 +69,7 @@
                 <div class="col-3 bg-light d-flex align-items-center justify-content-center">
                   <span class="fw-bold table_title">권한 상태</span>
                 </div>
-                <div class="col p-2">{{ UserInfo.PermissionState }}</div>
+                <div class="col p-2 text-secondary">{{ UserInfo.PermissionState }}</div>
               </div>
 
               <div class="row border-top mt-3 mx-0">
