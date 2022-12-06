@@ -16,9 +16,9 @@
     <div class="row mt-3">
       <div class="col-md-auto d-flex flex-row flex-nowrap align-items-center">
         <span>시작 날짜</span>
-        <Datepicker style="width: 170px; margin-left: 10px" v-model="DataPicker_Start" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
+        <Datepicker style="width: 170px; margin-left: 10px" v-model="DatePicker_Start" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
         <span class="ms-2">종료 날짜</span>
-        <Datepicker style="width: 170px; margin-left: 10px" v-model="DataPicker_Finish" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
+        <Datepicker style="width: 170px; margin-left: 10px" v-model="DatePicker_Finish" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
         <button class="btn btn-sm btn-outline-primary ms-2" type="button" v-on:click="DatePicker_Refresh">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -90,8 +90,8 @@
   // 전역변수 할당
   let GLOBAL_PROPERTY = AppInstance.appContext.config.globalProperties
   // 내부변수 할당
-  let DataPicker_Start = ref( new Date() )
-  let DataPicker_Finish = ref( new Date() )
+  let DatePicker_Start = ref( new Date() )
+  let DatePicker_Finish = ref( new Date() )
   let OrderList = ref( [] )
   // 이벤트 설정
   onMounted(() => {

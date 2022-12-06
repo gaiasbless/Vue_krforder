@@ -16,9 +16,9 @@
     <div class="row mt-3">
       <div class="col-md-auto d-flex flex-row flex-nowrap align-items-center">
         <span>시작 날짜</span>
-        <Datepicker style="width: 170px; margin-left: 10px" v-model="DataPicker_Start" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
+        <Datepicker style="width: 170px; margin-left: 10px" v-model="DatePicker_Start" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
         <span class="ms-2">종료 날짜</span>
-        <Datepicker style="width: 170px; margin-left: 10px" v-model="DataPicker_Finish" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
+        <Datepicker style="width: 170px; margin-left: 10px" v-model="DatePicker_Finish" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
         <button class="btn btn-sm btn-outline-primary ms-2" type="button" v-on:click="API_GetOrderProductList()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -87,8 +87,8 @@
   // 전역변수 할당
   let GLOBAL_PROPERTY = AppInstance.appContext.config.globalProperties
   // 내부변수 할당
-  let DataPicker_Start = ref( new Date() )
-  let DataPicker_Finish = ref( new Date() )
+  let DatePicker_Start = ref( new Date() )
+  let DatePicker_Finish = ref( new Date() )
   let OrderList = ref( [] )
   // 이벤트 설정
   onMounted(() => {
@@ -105,8 +105,8 @@
   }
   function DatePicker_Today() {
     let DateInstance = new Date();
-    DataPicker_Start.value = DateInstance
-    DataPicker_Finish.value = DateInstance
+    DatePicker_Start.value = DateInstance
+    DatePicker_Finish.value = DateInstance
     API_GetOrderProductList()
   }
   function DatePicker_Week() {
@@ -116,8 +116,8 @@
     var NowMonth = DateInstance.getMonth()
     var NowYear = DateInstance.getYear()
     NowYear += (NowYear < 2000) ? 1900 : 0
-    DataPicker_Start.value = new Date( NowYear, NowMonth, NowDay - NowDayOfWeek )
-    DataPicker_Finish.value = new Date( NowYear, NowMonth, NowDay + (6 - NowDayOfWeek) )
+    DatePicker_Start.value = new Date( NowYear, NowMonth, NowDay - NowDayOfWeek )
+    DatePicker_Finish.value = new Date( NowYear, NowMonth, NowDay + (6 - NowDayOfWeek) )
     API_GetOrderProductList()
   }
   function DatePicker_Month() {
@@ -125,8 +125,8 @@
     var NowMonth = DateInstance.getMonth()
     var NowYear = DateInstance.getYear()
     NowYear += (NowYear < 2000) ? 1900 : 0
-    DataPicker_Start.value = new Date( NowYear, NowMonth, 1 )
-    DataPicker_Finish.value = new Date( new Date( NowYear, NowMonth+1, 1 ) - 1 )
+    DatePicker_Start.value = new Date( NowYear, NowMonth, 1 )
+    DatePicker_Finish.value = new Date( new Date( NowYear, NowMonth+1, 1 ) - 1 )
     API_GetOrderProductList()
   }
   // 숫자 포맷 설정 (구분자 콤마 표시)
@@ -136,8 +136,8 @@
   // API 요청 - 발주 제품 목록
   function API_GetOrderProductList() {
     var PostParams = new URLSearchParams()
-    PostParams.append( 'START_DATE', moment( DataPicker_Start.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
-    PostParams.append( 'FINISH_DATE', moment( DataPicker_Finish.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
+    PostParams.append( 'START_DATE', moment( DatePicker_Start.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
+    PostParams.append( 'FINISH_DATE', moment( DatePicker_Finish.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
     LogManager.w( AppInstance?.type.__name, "API_GetOrderProductList()", "Parameter", PostParams.toString() )
     AxiosInstance.post( "/api/Order/OrderProductList/GetOrderProductList.php", PostParams )
     .then(response => {
