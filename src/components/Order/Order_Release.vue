@@ -63,7 +63,7 @@
               <td class="text-center align-middle">{{ ReleaseInfo.OrderType }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.ProductName }}</td>
               <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity ) }}</td>
-              <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity_Unit ) }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.Quantity_Unit == 0 ? '-' : NumberFormat( ReleaseInfo.Quantity_Unit ) }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.Order_Name }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.Order_Company }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.WorkerName }}</td>

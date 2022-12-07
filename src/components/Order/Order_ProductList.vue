@@ -58,7 +58,7 @@
               <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
               <td class="text-center align-middle">{{ OrderInfo.ProductName }}</td>
               <td class="text-center align-middle">{{ NumberFormat( OrderInfo.Quantity ) }}</td>
-              <td class="text-center align-middle">{{ NumberFormat( OrderInfo.Quantity_Unit ) }}</td>
+              <td class="text-center align-middle">{{ OrderInfo.Quantity_Unit == 0 ? '-' : NumberFormat( OrderInfo.Quantity_Unit ) }}</td>
               <td class="text-center align-middle">{{ OrderInfo.Order_Name }}</td>
               <td class="text-center align-middle">{{ OrderInfo.Order_Company }}</td>
               <td class="text-center align-middle">{{ OrderInfo.WorkerName }}</td>

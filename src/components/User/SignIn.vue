@@ -13,9 +13,6 @@
       <div class="row mt-2">
         <button class="btn btn-outline-primary" type="submit">로그인</button>
       </div>
-      <div class="row mt-2">
-        <button class="btn btn-outline-primary" type="button" v-on:click="router.replace( '/user/signup' )">회원가입</button>
-      </div>
     </form>
     <!-- 다이얼로그 -->
     <Dialog_Alert Title="로그인 실패" Message="계정 또는 비밀번호가 일치하지 않습니다."/>
