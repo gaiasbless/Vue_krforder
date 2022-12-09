@@ -36,6 +36,7 @@ router.beforeEach((to, from, next) => {
     // 라우터 이동
     if( to.path === '/user/signin' ) next()
     else if( to.path === '/user/signup' ) next()
+    else if( to.path === '/view/order' ) next()
     else {
       LogManager.w( 'Router Event', 'beforeEach - 로그아웃', '이동경로', to.path )
       next( '/user/signin' )

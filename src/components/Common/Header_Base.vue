@@ -11,6 +11,7 @@
   // 인스턴스 생성
   import { getCurrentInstance, ref, shallowRef, onMounted } from 'vue'
   import LogManager from '@/utility/LogManager'
+  import { useRoute } from 'vue-router'
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
   // 전역변수 할당
@@ -24,7 +25,8 @@
   })
   // 내부 함수
   function DisplayLayout_Default() {
-    Component_Header.value = GLOBAL_PROPERTY.$SignInState ? Component_Header_SignIn : Component_Header_SignOut
+    if( useRoute().path === "/view/order" ) Component_Header.value = null
+    else Component_Header.value = GLOBAL_PROPERTY.$SignInState ? Component_Header_SignIn : Component_Header_SignOut
   }
 </script>
 

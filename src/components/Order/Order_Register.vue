@@ -19,10 +19,10 @@
       </div>
       <div class="row mt-1">
         <div class="col p-0">
-          <span class="ps-1">발주번호 : {{ ReceiveCompanyInfo[0].OrderNumber }}</span>
+          <span class="fw-bold ps-1">발주번호 : {{ ReceiveCompanyInfo[0].OrderNumber }}</span>
         </div>
         <div class="col p-0 text-end">
-          <span class="">발주일자 : {{ OrderInfo.OrderDate_Display }}</span>
+          <span class="fw-bold">발주일자 : {{ OrderInfo.OrderDate_Display }}</span>
         </div>
       </div>
       <div class="row border border-dark border-2">
@@ -66,13 +66,13 @@
       <div class="row mt-2">
         <table class="border border-dark border-2">
           <tr>
-            <td class="table_title table_col1" style="width: 40px">순번</td>
-            <td class="table_title table_col2" style="width: 210px">제품코드</td>
+            <td class="table_title table_col1">순번</td>
+            <td class="table_title table_col2">제품코드</td>
             <td class="table_title table_col3">제품명</td>
-            <td class="table_title table_col4" style="width: 220px">규격</td>
-            <td class="table_title table_col5" style="width: 80px">총수량</td>
-            <td class="table_title table_col6" style="width: 70px">수량/롤</td>
-            <td class="table_title table_col7" style="width: 70px">수량/포장</td>
+            <td class="table_title table_col4">규격</td>
+            <td class="table_title table_col5">총수량</td>
+            <td class="table_title table_col6">수량/롤</td>
+            <td class="table_title table_col7">수량/포장</td>
           </tr>
           <!-- 제품 순번 1 -->
           <tr>
@@ -600,7 +600,7 @@
     PostParams.append( 'ORDER_COMPANY_INDEX', OrderInfo.value.OrderCompanyIndex )
     PostParams.append( 'RECEIVE_COMPANY_INDEX', OrderInfo.value.ReceiveCompanyIndex )
     PostParams.append( 'RECEIVE_MANAGER_INDEX', OrderInfo.value.ReceiveManagerIndex )
-    PostParams.append( 'ORDER_TYPE', 2 )  // 외부발주 2 고정값
+    PostParams.append( 'ORDER_TYPE', 1 )  // 외부발주 1 고정값
     PostParams.append( 'ORDER_NUMBER', ReceiveCompanyInfo.value[0].OrderNumber )
     PostParams.append( 'ORDER_DATE', OrderInfo.value.OrderDate )
     if( OrderFromState.value.DisplayProduct1 ) {
@@ -667,7 +667,6 @@
     .catch(ex => {
       LogManager.w( AppInstance?.type.__name, "API_RegisterOrderInfo()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
-      Emits( "Event_UpdateMenu", "list" )
     })
   }
 </script>
@@ -686,6 +685,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
 html, body, div {
   font-size: 97%;
 }
@@ -742,9 +742,9 @@ table td {
   }
 }
 .table_col1 { width: 40px }
-.table_col2 { width: 210px }
+.table_col2 { width: 200px }
 .table_col3 { }
-.table_col4 { width: 220px }
+.table_col4 { width: 217px }
 .table_col5 { width: 80px }
 .table_col6 { width: 70px }
 .table_col7 { width: 70px }

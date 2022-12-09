@@ -32,7 +32,6 @@
   })
   // 내부 함수
   function DisplayLayout_Default() {
-    router.push( '/user/signin' )
   }
 </script>
 
@@ -44,7 +43,6 @@ export default {
     }
   },
   created() {
-    // this.$router.push( '/user/signin' )
   },
 }
 </script>
