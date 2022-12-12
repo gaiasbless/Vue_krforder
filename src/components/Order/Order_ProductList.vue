@@ -53,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="OrderInfo in OrderList" v-bind:key="OrderInfo.idx" v-on:click="DisplayOrderModify( OrderInfo.idx )">
+          <tr v-for="OrderInfo in OrderList" v-bind:key="OrderInfo.idx">
               <td class="text-center align-middle">{{ OrderInfo.SerialNumber }}</td>
               <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
               <td class="text-center align-middle">{{ OrderInfo.ProductName }}</td>
@@ -98,10 +98,6 @@
   // 내부 함수
   function DisplayLayout_Default() {
     API_GetOrderProductList()
-  }
-  function DisplayOrderModify( OrderIndex ) {
-    LogManager.w( "Order_ProductList", "DisplayOrderModify()", "OrderIndex", OrderIndex )
-    router.push( { name: 'Order_List_Modify', params: { OrderIndex: parseInt( OrderIndex ) } } )
   }
   function DatePicker_Today() {
     let DateInstance = new Date();

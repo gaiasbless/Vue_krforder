@@ -29,25 +29,23 @@
     // 헤더 상태 갱신 요청
     Emits( "Event_UpdateSignIn" )
     console.log( useRoute().query.id )
-    API_OrderForm_View_Web( useRoute().query.id )
+    API_OrderForm_Set( useRoute().query.id, useRoute().query.reason )
   }
   // API 요청 - 발주서 폼 HTML 데이터 수집
-  function API_OrderForm_View_Web( OrderId ) {
+  function API_OrderForm_Set( OrderId, Reason ) {
     var PostParams = new URLSearchParams();
     PostParams.append( 'ORDER_ID', OrderId )
-    LogManager.w( AppInstance?.type.__name, "API_OrderForm_View_Web()", "Parameter", PostParams.toString() )
-    AxiosInstance.post( "/api/Order/Register/OrderForm_View_Web.php", PostParams )
+    PostParams.append( 'REJECT_REASON', Reason )
+    LogManager.w( AppInstance?.type.__name, "API_OrderForm_Set()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Order/Register/OrderForm_Set.php", PostParams )
     .then(response => {
-      LogManager.w( AppInstance?.type.__name, "API_OrderForm_View_Web()", "Result", JSON.stringify( response.data ) )
-      if( response.data.success == 1 ) {
-        HtmlData.value = response.data.data
-      }
-      else if( response.data.success == -1 ) alert( "취소 또는 반려 처리된 발주서 입니다." )
-      else if( response.data.success == -2 ) alert( "이미 승인 처리되어 담당자에게 전달된 발주서 입니다." )
-      else alert( "데이터가 존재하지 않습니다.\n관리자에 의해 데이터가 삭제되었거나 시스템 오류 입니다." )
+      LogManager.w( AppInstance?.type.__name, "API_OrderForm_Set()", "Result", JSON.stringify( response.data ) )
+      if( response.data.success == 1 ) alert( "정상적으로 승인 처리 되었습니다." )
+      else if( response.data.success == 2 ) alert( "정상적으로 반려 처리 되었습니다." )
+      else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
     .catch(ex => {
-      LogManager.w( AppInstance?.type.__name, "API_OrderForm_View_Web()", "서버 요청 오류", ex )
+      LogManager.w( AppInstance?.type.__name, "API_OrderForm_Set()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
   }

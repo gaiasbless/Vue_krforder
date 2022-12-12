@@ -25,7 +25,7 @@
   })
   // 내부 함수
   function DisplayLayout_Default() {
-    if( useRoute().path === "/view/order" ) Component_Header.value = null
+    if( useRoute().path === "/view/order" || useRoute().path === "/set/order" ) Component_Header.value = null
     else Component_Header.value = GLOBAL_PROPERTY.$SignInState ? Component_Header_SignIn : Component_Header_SignOut
   }
 </script>

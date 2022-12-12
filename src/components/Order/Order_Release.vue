@@ -51,8 +51,9 @@
             <th class="text-center align-middle" scope="col">입고</th>
             <th class="text-center align-middle" scope="col">완료</th>
             <th class="text-center align-middle" scope="col">생산</th>
-            <th class="text-center align-middle" scope="col">배정</th>
-            <th class="text-center align-middle" scope="col">전달</th>
+            <th class="text-center align-middle" scope="col">생산요청</th>
+            <th class="text-center align-middle" scope="col">승인</th>
+            <th class="text-center align-middle" scope="col">확인</th>
             <th class="text-center align-middle" scope="col">발주시간</th>
             <th class="text-center align-middle" scope="col">출고시간</th>
           </tr>
@@ -71,8 +72,9 @@
               <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Delivered > 60 ? (ReleaseInfo.TimeDiff_Delivered/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Delivered + "m" }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Complete > 60 ? (ReleaseInfo.TimeDiff_Complete/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Complete + "m" }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Progress > 60 ? (ReleaseInfo.TimeDiff_Progress/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Progress + "m" }}</td>
-              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Assign > 60 ? (ReleaseInfo.TimeDiff_Assign/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Assign + "m" }}</td>
-              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_ExtRegister > 60 ? (ReleaseInfo.TimeDiff_ExtRegister/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_ExtRegister + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Request > 60 ? (ReleaseInfo.TimeDiff_Request/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Request + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Approval > 60 ? (ReleaseInfo.TimeDiff_Approval/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Approval + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Check > 60 ? (ReleaseInfo.TimeDiff_Check/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Check + "m" }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.RegisterTime }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.ProcessTime_Release }}</td>
           </tr>
