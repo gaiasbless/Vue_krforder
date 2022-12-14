@@ -86,9 +86,9 @@
             <td class="table_cell">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Width_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Height_01" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
@@ -128,7 +128,7 @@
           </tr>
         </table>
         <!-- 추가 버튼 영역 1 -->
-        <div class="row mt-1 mb-1 ms-0">
+        <div class="row mt-1 ms-0">
           <div class="col text-center">
             <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
             data-bs-toggle="collapse" data-bs-target="#ProductLayer_02" aria-expanded="false" aria-controls="ProductLayer_02"
@@ -151,9 +151,9 @@
             <td class="table_cell table_col4">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct2"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Width_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct2"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Height_02" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
@@ -193,7 +193,7 @@
           </tr>
         </table>
         <!-- 추가 삭제 버튼 영역 2 -->
-        <div class="row mt-1 mb-1 ms-0">
+        <div class="row mt-1 ms-0">
           <div class="col text-center">
             <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
             data-bs-toggle="collapse" data-bs-target="#ProductLayer_03" aria-expanded="false" aria-controls="ProductLayer_03"
@@ -219,9 +219,9 @@
             <td class="table_cell table_col4">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct3"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Width_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct3"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Height_03" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
@@ -261,7 +261,7 @@
           </tr>
         </table>
         <!-- 추가 삭제 버튼 영역 3 -->
-        <div class="row mt-1 mb-1 ms-0">
+        <div class="row mt-1 ms-0">
           <div class="col text-center">
             <button class="btn btn-primary" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
             data-bs-toggle="collapse" data-bs-target="#ProductLayer_04" aria-expanded="false" aria-controls="ProductLayer_04"
@@ -287,9 +287,9 @@
             <td class="table_cell table_col4">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Width_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct4"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Width_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct4"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimenstion_Height_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo.Dimension_Height_04" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
@@ -329,7 +329,7 @@
           </tr>
         </table>
         <!-- 추가 삭제 버튼 영역 4 -->
-        <div class="row mt-1 mb-1 ms-0">
+        <div class="row mt-1 ms-0">
           <div class="col text-center">
             <button class="btn btn-primary ms-1" style="width: 50px; padding: 3px; font-size: 90%;" type="button"
             data-bs-toggle="collapse" data-bs-target="#ProductLayer_04" aria-expanded="true" aria-controls="ProductLayer_04"
@@ -350,7 +350,7 @@
         </table>
       </div>
       <!-- 비고 입력 -->
-      <div class="row mt-3">
+      <div class="row mt-2">
         <table style="min-height: 150px">
           <tr>
             <td class="table_title" style="width: 100px">비고</td>
@@ -362,7 +362,7 @@
       </div>
 
       <div class="row mt-4 mb-5 d-flex align-items-center justify-content-center">
-        <button class="col-4 btn btn-primary" type="submit">발주서 등록</button>
+        <button class="col-4 btn btn-primary" type="submit" onclick="return confirm( '발주서를 등록 할까요?' )">발주서 등록</button>
       </div>
     </form>
 
@@ -410,8 +410,8 @@
     OrderDate_Display: moment( new Date(), "YYYY-MM-DD", true ).format( "YYYY년 M월 D일" ),
     ProductCode_01: "",
     ProductName_01: "",
-    Dimenstion_Width_01: null,
-    Dimenstion_Height_01: null,
+    Dimension_Width_01: null,
+    Dimension_Height_01: null,
     Quantity_01: null,
     Quantity_Unit_01: null,
     Quantity_Package_01: 0,
@@ -419,8 +419,8 @@
     Purpose_01: "",
     ProductCode_02: "",
     ProductName_02: "",
-    Dimenstion_Width_02: null,
-    Dimenstion_Height_02: null,
+    Dimension_Width_02: null,
+    Dimension_Height_02: null,
     RequestMessage_02: "",
     Quantity_02: null,
     Quantity_Unit_02: null,
@@ -429,8 +429,8 @@
     Purpose_02: "",
     ProductCode_03: "",
     ProductName_03: "",
-    Dimenstion_Width_03: null,
-    Dimenstion_Height_03: null,
+    Dimension_Width_03: null,
+    Dimension_Height_03: null,
     Quantity_03: null,
     Quantity_Unit_03: null,
     Quantity_Package_03: 0,
@@ -438,8 +438,8 @@
     Purpose_03: "",
     ProductCode_04: "",
     ProductName_04: "",
-    Dimenstion_Width_04: null,
-    Dimenstion_Height_04: null,
+    Dimension_Width_04: null,
+    Dimension_Height_04: null,
     Quantity_04: null,
     Quantity_Unit_04: null,
     Quantity_Package_04: 0,
@@ -606,8 +606,8 @@
     if( OrderFromState.value.DisplayProduct1 ) {
       PostParams.append( 'PRODUCT_CODE_01', OrderInfo.value.ProductCode_01 )
       PostParams.append( 'PRODUCT_NAME_01', OrderInfo.value.ProductName_01 )
-      PostParams.append( 'DIMENSION_WIDTH_01', OrderInfo.value.Dimenstion_Width_01 )
-      PostParams.append( 'DIMENSION_HEIGHT_01', OrderInfo.value.Dimenstion_Height_01 )
+      PostParams.append( 'DIMENSION_WIDTH_01', OrderInfo.value.Dimension_Width_01 )
+      PostParams.append( 'DIMENSION_HEIGHT_01', OrderInfo.value.Dimension_Height_01 )
       PostParams.append( 'QUANTITY_01', OrderInfo.value.Quantity_01 )
       PostParams.append( 'QUANTITY_UNIT_01', OrderInfo.value.Quantity_Unit_01 )
       PostParams.append( 'REQUEST_MESSAGE_01', OrderInfo.value.RequestMessage_01 )
@@ -616,8 +616,8 @@
     if( OrderFromState.value.DisplayProduct2 ) {
       PostParams.append( 'PRODUCT_CODE_02', OrderInfo.value.ProductCode_02 )
       PostParams.append( 'PRODUCT_NAME_02', OrderInfo.value.ProductName_02 )
-      PostParams.append( 'DIMENSION_WIDTH_02', OrderInfo.value.Dimenstion_Width_02 )
-      PostParams.append( 'DIMENSION_HEIGHT_02', OrderInfo.value.Dimenstion_Height_02 )
+      PostParams.append( 'DIMENSION_WIDTH_02', OrderInfo.value.Dimension_Width_02 )
+      PostParams.append( 'DIMENSION_HEIGHT_02', OrderInfo.value.Dimension_Height_02 )
       PostParams.append( 'QUANTITY_02', OrderInfo.value.Quantity_02 )
       PostParams.append( 'QUANTITY_UNIT_02', OrderInfo.value.Quantity_Unit_02 )
       PostParams.append( 'REQUEST_MESSAGE_02', OrderInfo.value.RequestMessage_02 )
@@ -626,8 +626,8 @@
     if( OrderFromState.value.DisplayProduct3 ) {
       PostParams.append( 'PRODUCT_CODE_03', OrderInfo.value.ProductCode_03 )
       PostParams.append( 'PRODUCT_NAME_03', OrderInfo.value.ProductName_03 )
-      PostParams.append( 'DIMENSION_WIDTH_03', OrderInfo.value.Dimenstion_Width_03 )
-      PostParams.append( 'DIMENSION_HEIGHT_03', OrderInfo.value.Dimenstion_Height_03 )
+      PostParams.append( 'DIMENSION_WIDTH_03', OrderInfo.value.Dimension_Width_03 )
+      PostParams.append( 'DIMENSION_HEIGHT_03', OrderInfo.value.Dimension_Height_03 )
       PostParams.append( 'QUANTITY_03', OrderInfo.value.Quantity_03 )
       PostParams.append( 'QUANTITY_UNIT_03', OrderInfo.value.Quantity_Unit_03 )
       PostParams.append( 'REQUEST_MESSAGE_03', OrderInfo.value.RequestMessage_03 )
@@ -636,8 +636,8 @@
     if( OrderFromState.value.DisplayProduct4 ) {
       PostParams.append( 'PRODUCT_CODE_04', OrderInfo.value.ProductCode_04 )
       PostParams.append( 'PRODUCT_NAME_04', OrderInfo.value.ProductName_04 )
-      PostParams.append( 'DIMENSION_WIDTH_04', OrderInfo.value.Dimenstion_Width_04 )
-      PostParams.append( 'DIMENSION_HEIGHT_04', OrderInfo.value.Dimenstion_Height_04 )
+      PostParams.append( 'DIMENSION_WIDTH_04', OrderInfo.value.Dimension_Width_04 )
+      PostParams.append( 'DIMENSION_HEIGHT_04', OrderInfo.value.Dimension_Height_04 )
       PostParams.append( 'QUANTITY_04', OrderInfo.value.Quantity_04 )
       PostParams.append( 'QUANTITY_UNIT_04', OrderInfo.value.Quantity_Unit_04 )
       PostParams.append( 'REQUEST_MESSAGE_04', OrderInfo.value.RequestMessage_04 )
@@ -651,7 +651,7 @@
       LogManager.w( AppInstance?.type.__name, "API_RegisterOrderInfo()", "Result", JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {
         alert( "발주서 등록이 완료 되었습니다." )
-        Emits( "Event_UpdateMenu", "list" )
+        Emits( "Event_UpdateMenu", "reglist" )
       }
       else if( response.data.success == -10 ) {
         alert( "발주서 등록 권한이 없습니다." )

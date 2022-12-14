@@ -11,6 +11,9 @@
         <li class="nav-item">
           <router-link class="nav-link active" aria-current="page" v-bind:to="{ name: 'Order_Main', params: { PageName: 'list' }}">발주관리</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link active" aria-current="page" v-bind:to="{ name: 'Logistics_Main', params: { PageName: 'store' }}">입출고관리</router-link>
+        </li>
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">

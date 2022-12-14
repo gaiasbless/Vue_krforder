@@ -2,15 +2,15 @@
   <div class="w-100 d-flex flex-column p-2">
 
     <div class="d-flex flex-row">
-      <img class="mt-1 me-2" src="@bootstrap-icons/icons/Telephone.svg" width="18" height="18">
-      <h5><b>발주 제품 목록</b></h5>
+      <img class="mt-1 me-2" src="@bootstrap-icons/icons/hourglass.svg" width="19" height="19">
+      <h5><b>입고 대기 목록 (작업 중)</b></h5>
     </div>
 
     <span class="text-info" style="font-size: 80%; text-decoration: underline;">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="align-text-bottom bi bi-star" viewBox="0 0 16 16">
         <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
       </svg>
-      제품별로 등록된 발주 목록이 출력 됩니다.
+      출고 완료된 제품 목록이 출력 됩니다.
     </span>
 
     <div class="row mt-3">
@@ -19,7 +19,7 @@
         <Datepicker style="width: 170px; margin-left: 10px" v-model="DatePicker_Start" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
         <span class="ms-2">종료 날짜</span>
         <Datepicker style="width: 170px; margin-left: 10px" v-model="DatePicker_Finish" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="false" nowButtonLabel="오늘" autoApply showNowButton></Datepicker>
-        <button class="btn btn-sm btn-outline-primary ms-2" type="button" v-on:click="API_GetOrderProductList()">
+        <button class="btn btn-sm btn-outline-primary ms-2" type="button" v-on:click="API_GetReleaseList()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
             <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -47,24 +47,36 @@
             <th class="text-center align-middle" scope="col">주문</th>
             <th class="text-center align-middle" scope="col">발주처</th>
             <th class="text-center align-middle" scope="col">작업자</th>
-            <th class="text-center align-middle" scope="col">진행상태</th>
-            <th class="text-center align-middle" scope="col">진행시간</th>
+            <th class="text-center align-middle" scope="col">전체</th>
+            <th class="text-center align-middle" scope="col">입고</th>
+            <th class="text-center align-middle" scope="col">완료</th>
+            <th class="text-center align-middle" scope="col">생산</th>
+            <th class="text-center align-middle" scope="col">생산요청</th>
+            <th class="text-center align-middle" scope="col">승인</th>
+            <th class="text-center align-middle" scope="col">확인</th>
             <th class="text-center align-middle" scope="col">발주시간</th>
+            <th class="text-center align-middle" scope="col">출고시간</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="OrderInfo in OrderList" v-bind:key="OrderInfo.idx">
-              <td class="text-center align-middle">{{ OrderInfo.SerialNumber }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.ProductName }}</td>
-              <td class="text-center align-middle">{{ NumberFormat( OrderInfo.Quantity ) }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.Quantity_Unit == 0 ? '-' : NumberFormat( OrderInfo.Quantity_Unit ) }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.Order_Name }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.Order_Company }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.WorkerName }}</td>
-              <td class="text-center align-middle text-danger">{{ OrderInfo.State }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.ProcessTime }}</td>
-              <td class="text-center align-middle">{{ OrderInfo.RegisterTime }}</td>
+          <tr v-for="ReleaseInfo in ReleaseList" v-bind:key="ReleaseInfo.idx">
+              <td class="text-center align-middle">{{ ReleaseInfo.SerialNumber }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.OrderType }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.ProductName }}</td>
+              <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity ) }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.Quantity_Unit == 0 ? '-' : NumberFormat( ReleaseInfo.Quantity_Unit ) }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.Order_Name }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.Order_Company }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.WorkerName }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Total > 60 ? (ReleaseInfo.TimeDiff_Total/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Total + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Delivered > 60 ? (ReleaseInfo.TimeDiff_Delivered/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Delivered + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Complete > 60 ? (ReleaseInfo.TimeDiff_Complete/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Complete + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Progress > 60 ? (ReleaseInfo.TimeDiff_Progress/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Progress + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Request > 60 ? (ReleaseInfo.TimeDiff_Request/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Request + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Approval > 60 ? (ReleaseInfo.TimeDiff_Approval/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Approval + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Check > 60 ? (ReleaseInfo.TimeDiff_Check/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Check + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.RegisterTime }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.ProcessTime_Release }}</td>
           </tr>
         </tbody>
       </table>
@@ -89,21 +101,21 @@
   // 내부변수 할당
   let DatePicker_Start = ref( new Date() )
   let DatePicker_Finish = ref( new Date() )
-  let OrderList = ref( [] )
+  let ReleaseList = ref( [] )
   // 이벤트 설정
   onMounted(() => {
-    LogManager.w( "Order_ProductList", 'onMounted()' )
+    LogManager.w( "Order_Release", 'onMounted()' )
     DisplayLayout_Default()
   })
   // 내부 함수
   function DisplayLayout_Default() {
-    API_GetOrderProductList()
+    API_GetReleaseList()
   }
   function DatePicker_Today() {
     let DateInstance = new Date();
     DatePicker_Start.value = DateInstance
     DatePicker_Finish.value = DateInstance
-    API_GetOrderProductList()
+    API_GetReleaseList()
   }
   function DatePicker_Week() {
     var DateInstance = new Date()
@@ -114,7 +126,7 @@
     NowYear += (NowYear < 2000) ? 1900 : 0
     DatePicker_Start.value = new Date( NowYear, NowMonth, NowDay - NowDayOfWeek )
     DatePicker_Finish.value = new Date( NowYear, NowMonth, NowDay + (6 - NowDayOfWeek) )
-    API_GetOrderProductList()
+    API_GetReleaseList()
   }
   function DatePicker_Month() {
     var DateInstance = new Date()
@@ -123,26 +135,26 @@
     NowYear += (NowYear < 2000) ? 1900 : 0
     DatePicker_Start.value = new Date( NowYear, NowMonth, 1 )
     DatePicker_Finish.value = new Date( new Date( NowYear, NowMonth+1, 1 ) - 1 )
-    API_GetOrderProductList()
+    API_GetReleaseList()
   }
   // 숫자 포맷 설정 (구분자 콤마 표시)
   function NumberFormat( Number ) {
     return String( Number ).replace( /\B(?=(\d{3})+(?!\d))/g, "," )
   }
   // API 요청 - 발주 제품 목록
-  function API_GetOrderProductList() {
+  function API_GetReleaseList() {
     var PostParams = new URLSearchParams()
     PostParams.append( 'START_DATE', moment( DatePicker_Start.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
     PostParams.append( 'FINISH_DATE', moment( DatePicker_Finish.value, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
-    LogManager.w( AppInstance?.type.__name, "API_GetOrderProductList()", "Parameter", PostParams.toString() )
-    AxiosInstance.post( "/api/Order/OrderProductList/GetOrderProductList.php", PostParams )
+    LogManager.w( AppInstance?.type.__name, "API_GetReleaseList()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Order/ReleaseList/GetReleaseList.php", PostParams )
     .then(response => {
-      LogManager.w( AppInstance?.type.__name, "API_GetOrderProductList()", "Result", JSON.stringify( response.data ) )
+      LogManager.w( AppInstance?.type.__name, "API_GetReleaseList()", "Result", JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {
-        OrderList.value = response.data.data
+        ReleaseList.value = response.data.data
       }
       else if( response.data.success == -10 ) {
-        alert( "발주서 열람 권한이 없습니다." )
+        alert( "출고완료 목록 열람 권한이 없습니다." )
         router.push( "/" )
       }
       else if( response.data.success == -1000 ) {

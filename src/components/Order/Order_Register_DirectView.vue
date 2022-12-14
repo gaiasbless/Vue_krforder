@@ -44,7 +44,7 @@
       }
       else if( response.data.success == -1 ) alert( "취소 또는 반려 처리된 발주서 입니다." )
       else if( response.data.success == -2 ) alert( "이미 승인 처리되어 담당자에게 전달된 발주서 입니다." )
-      else alert( "데이터가 존재하지 않습니다.\n관리자에 의해 데이터가 삭제되었거나 시스템 오류 입니다." )
+      else alert( "데이터가 존재하지 않습니다.\n사용자에 의해 삭제 또는 수정된 항목 입니다." )
     })
     .catch(ex => {
       LogManager.w( AppInstance?.type.__name, "API_OrderForm_View_Web()", "서버 요청 오류", ex )

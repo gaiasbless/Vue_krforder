@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-bind:style="Style_Size">
-    <Component_Header_Base v-bind:key="Key_UpdateCount" v-on:Event_UpdateSignIn="DisplayLayout_UpdateSignIn"/>
+    <Component_Header_Base class="sticky-top" v-bind:key="Key_UpdateCount" v-on:Event_UpdateSignIn="DisplayLayout_UpdateSignIn"/>
     <router-view v-on:Event_UpdateSignIn="DisplayLayout_UpdateSignIn"/>
   </div>
 </template>

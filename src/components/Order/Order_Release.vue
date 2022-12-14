@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 d-flex flex-column p-2" style="min-width: 900px">
+  <div class="w-100 d-flex flex-column p-2">
 
     <div class="d-flex flex-row">
       <img class="mt-1 me-2" src="@bootstrap-icons/icons/check-square.svg" width="18" height="18">
@@ -91,6 +91,7 @@
   // 인스턴스 생성
   import { getCurrentInstance, ref, shallowRef, onMounted } from 'vue'
   import LogManager from '@/utility/LogManager'
+  import router from '@/router'
   import moment from 'moment'
   import Datepicker from '@vuepic/vue-datepicker';
   // 인스턴스 할당
@@ -155,7 +156,6 @@
       }
       else if( response.data.success == -10 ) {
         alert( "출고완료 목록 열람 권한이 없습니다." )
-        router.push( "/" )
       }
       else if( response.data.success == -1000 ) {
         alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )

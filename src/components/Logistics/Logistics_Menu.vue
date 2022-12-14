@@ -1,12 +1,9 @@
 <template>
   <div class="h-100 d-flex flex-column flex-grow-1 p-1" style="width: 230px; min-width: 230px; background: #eae9e9;">
     <div class="list-group">
-      <span v-bind:class="MenuState.Selected_OrderProductList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 제품 목록</span>
-      <span v-bind:class="MenuState.Selected_OrderRegisterList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'reglist' )">발주서 목록</span>
-      <span v-bind:class="MenuState.Selected_WaitDeliver ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'waitdeliver' )">입고 대기 목록</span>
-      <span v-bind:class="MenuState.Selected_WaitRelease ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'waitrelease' )">출고 대기 목록</span>
-      <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
-      <span v-bind:class="MenuState.Selected_Register ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'register' )">발주 등록</span>
+      <span v-bind:class="MenuState.Selected_Store ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'store' )">입고 대기 목록</span>
+      <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'release' )">출고 대기 목록</span>
+      <!-- <span v-bind:class="MenuState.Selected_Register ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'register' )">발주 등록</span> -->
     </div>
   </div>
 </template>
@@ -29,17 +26,13 @@
   let MenuState_Unselected = "list-group-item list-group-item-action menu_item"
   let MenuState_Unselected_Margin = "list-group-item list-group-item-action menu_item mt-2"
   let MenuState = ref( {
-      Selected_OrderProductList: false,
-      Selected_OrderRegisterList: false,
-      Selected_WaitDeliver: false,
-      Selected_WaitRelease: false,
+      Selected_Store: false,
       Selected_Release: false,
-      Selected_Order: false,
   } )
   // 이벤트 설정
   onMounted(() => {
     // LogManager.SetDisplay( false )
-    LogManager.w( "Order_Menu", 'onMounted()' )
+    LogManager.w( "Logistics_Menu", 'onMounted()' )
     DisplayLayout_Default()
   })
   // 내부 함수
@@ -48,31 +41,15 @@
   }
   function DisplayLayout_MenuState() {
     let PageName = useRoute().params.PageName
-    // LogManager.w( "Order_Menu", "DisplayLayout_MenuState", "PageName", PageName )
-    MenuState.value.Selected_OrderProductList = false
-    MenuState.value.Selected_OrderRegisterList = false
-    MenuState.value.Selected_WaitDeliver = false
-    MenuState.value.Selected_WaitRelease = false
+    // LogManager.w( "Logistics_Menu", "DisplayLayout_MenuState", "PageName", PageName )
+    MenuState.value.Selected_Store = false
     MenuState.value.Selected_Release = false
-    MenuState.value.Selected_Register = false
     switch( PageName ) {
-      case "list":
-        MenuState.value.Selected_OrderProductList = true
-        break;
-      case "reglist":
-        MenuState.value.Selected_OrderRegisterList = true
-        break;
-      case "waitdeliver":
-        MenuState.value.Selected_WaitDeliver = true
-        break;
-      case "waitrelease":
-        MenuState.value.Selected_WaitRelease = true
+      case "store":
+        MenuState.value.Selected_Store = true
         break;
       case "release":
         MenuState.value.Selected_Release = true
-        break;
-      case "register":
-        MenuState.value.Selected_Register = true
         break;
     }
   }
