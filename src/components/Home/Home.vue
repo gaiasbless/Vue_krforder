@@ -28,10 +28,11 @@
           <div class="row mt-3" v-if="SummaryInfo_Today.OrderQuantity_Ext + SummaryInfo_Today.OrderQuantity_Int > 0">
             <span class="px-2">- 제품별 발주 목록</span>
           </div>
-          <div class="row" style="width: 400px" v-if="SummaryInfo_Today.OrderQuantity_Ext + SummaryInfo_Today.OrderQuantity_Int > 0">
+          <div class="row" style="width: 450px" v-if="SummaryInfo_Today.OrderQuantity_Ext + SummaryInfo_Today.OrderQuantity_Int > 0">
             <table class="mb-3 ms-3">
               <thead>
                 <tr>
+                  <th class="text-center align-middle" scope="col">분류</th>
                   <th class="text-center align-middle" scope="col">제품코드</th>
                   <th class="text-center align-middle" scope="col">발주건수</th>
                   <th class="text-center align-middle" scope="col">발행수량</th>
@@ -39,6 +40,7 @@
               </thead>
               <tbody>
                 <tr v-for="OrderInfo in OrderList_Today" v-bind:key="OrderInfo.idx">
+                  <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
                     <td class="text-center align-middle">{{ OrderInfo.ProductCode }}</td>
                     <td class="pe-3 text-end align-middle">{{ NumberFormat( OrderInfo.OrderQuantity ) }}</td>
                     <td class="pe-4 text-end align-middle">{{ NumberFormat( OrderInfo.PrintQuantity )  }}</td>
@@ -73,10 +75,11 @@
           <div class="row mt-3" v-if="SummaryInfo_Week.OrderQuantity_Ext + SummaryInfo_Week.OrderQuantity_Int > 0">
             <span class="px-2">- 제품별 발주 목록</span>
           </div>
-          <div class="row" style="width: 400px" v-if="SummaryInfo_Week.OrderQuantity_Ext + SummaryInfo_Week.OrderQuantity_Int > 0">
+          <div class="row" style="width: 450px" v-if="SummaryInfo_Week.OrderQuantity_Ext + SummaryInfo_Week.OrderQuantity_Int > 0">
             <table class="mb-3 ms-3">
               <thead>
                 <tr>
+                  <th class="text-center align-middle" scope="col">분류</th>
                   <th class="text-center align-middle" scope="col">제품코드</th>
                   <th class="text-center align-middle" scope="col">발주건수</th>
                   <th class="text-center align-middle" scope="col">발행수량</th>
@@ -84,9 +87,74 @@
               </thead>
               <tbody>
                 <tr v-for="OrderInfo in OrderList_Week" v-bind:key="OrderInfo.idx">
+                    <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
                     <td class="text-center align-middle">{{ OrderInfo.ProductCode }}</td>
                     <td class="pe-3 text-end align-middle">{{ NumberFormat( OrderInfo.OrderQuantity ) }}</td>
                     <td class="pe-4 text-end align-middle">{{ NumberFormat( OrderInfo.PrintQuantity )  }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div v-if="WaitStoreList.length > 0">
+          <div class="row mt-5 border-top border-bottom border-dark bg-warning bg-opacity-25">
+            <span class="p-2 fw-bold">▷ 입고 대기 ({{ WaitStoreList.length }}건)</span>
+          </div>
+          <div class="row border-bottom border-dark d-flex flex-column">
+            <table class="p-0">
+              <thead>
+                <tr>
+                  <th class="text-center align-middle" scope="col">제품명</th>
+                  <th class="text-center align-middle" scope="col">수량</th>
+                  <th class="text-center align-middle" scope="col">입고수량</th>
+                  <th class="text-center align-middle" scope="col">미입고</th>
+                  <th class="text-center align-middle" scope="col">발주자</th>
+                  <th class="text-center align-middle" scope="col">경과시간</th>
+                  <th class="text-center align-middle" scope="col">생산요청</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="StoreInfo in WaitStoreList" v-bind:key="StoreInfo.idx">
+                    <td class="text-center align-middle">{{ StoreInfo.ProductName }}</td>
+                    <td class="text-center align-middle">{{ NumberFormat( StoreInfo.Quantity ) }}</td>
+                    <td class="text-center align-middle">{{ NumberFormat( StoreInfo.Quantity_Stored ) }}</td>
+                    <td class="text-center align-middle">{{ NumberFormat( StoreInfo.Quantity_Left ) }}</td>
+                    <td class="text-center align-middle">{{ StoreInfo.Order_Name }}</td>
+                    <td class="text-center align-middle">{{ StoreInfo.TimeDiff_Delivered > 60 ? (StoreInfo.TimeDiff_Delivered/60).toFixed(1) + "h" : StoreInfo.TimeDiff_Delivered + "m" }}</td>
+                    <td class="text-center align-middle">{{ StoreInfo.ProcessTime_Request }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div v-if="WaitReleaseList.length > 0">
+          <div class="row mt-5 border-top border-bottom border-dark bg-success bg-opacity-25">
+            <span class="p-2 fw-bold">▷ 출고 대기 ({{ WaitReleaseList.length }}건)</span>
+          </div>
+          <div class="row border-bottom border-dark d-flex flex-column mb-5">
+            <table class="p-0">
+              <thead>
+                <tr>
+                  <th class="text-center align-middle" scope="col">제품명</th>
+                  <th class="text-center align-middle" scope="col">수량</th>
+                  <th class="text-center align-middle" scope="col">출고수량</th>
+                  <th class="text-center align-middle" scope="col">미출고</th>
+                  <th class="text-center align-middle" scope="col">발주자</th>
+                  <th class="text-center align-middle" scope="col">경과시간</th>
+                  <th class="text-center align-middle" scope="col">입고시간</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="ReleaseInfo in WaitReleaseList" v-bind:key="ReleaseInfo.idx">
+                    <td class="text-center align-middle">{{ ReleaseInfo.ProductName }}</td>
+                    <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity ) }}</td>
+                    <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity_Released ) }}</td>
+                    <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity_Left ) }}</td>
+                    <td class="text-center align-middle">{{ ReleaseInfo.Order_Name }}</td>
+                    <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Release }}d</td>
+                    <td class="text-center align-middle">{{ ReleaseInfo.ProcessTime_Delivered }}</td>
                 </tr>
               </tbody>
             </table>
@@ -113,6 +181,8 @@
   const SummaryInfo_Week = ref( { OrderQuantity_Ext: 0, PrintQuantity_Ext: 0, OrderQuantity_Int: 0, PrintQuantity_Int: 0 } )
   const OrderList_Today = ref( null )
   const OrderList_Week = ref( null )
+  const WaitStoreList = ref( [] )
+  const WaitReleaseList = ref( [] )
   // 이벤트 설정
   onMounted(() => {
     LogManager.w( AppInstance?.type.__name, 'onMounted()' )
@@ -122,6 +192,7 @@
   function DisplayLayout_Default() {
     GetSummaryInfo_Today()
     GetSummaryInfo_Week()
+    // API_GetStoreReleaseWaitList()
   }
   function GetSummaryInfo_Today() {
     let DateInstance = new Date();
@@ -166,10 +237,6 @@
           OrderList_Week.value = response.data.data
         }
       }
-      else if( response.data.success == -10 ) {
-        alert( "출고완료 목록 열람 권한이 없습니다." )
-        router.push( "/" )
-      }
       else if( response.data.success == -1000 ) {
         alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )
         GLOBAL_PROPERTY.$SignInState = false
@@ -179,6 +246,30 @@
     })
     .catch(ex => {
       LogManager.w( AppInstance?.type.__name, "API_GetSummaryInfo()", "서버 요청 오류", ex )
+      alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+    })
+  }
+  // API 요청 - 입출고 요약 정보 수집
+  function API_GetStoreReleaseWaitList() {
+    var PostParams = new URLSearchParams()
+    // PostParams.append( 'FINISH_DATE', moment( FinishDate, "YYYY-MM-DD", true ).format( "YYYY-MM-DD" ) );
+    LogManager.w( AppInstance?.type.__name, "API_GetStoreReleaseWaitList()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Home/GetStoreReleaseWaitList.php", PostParams )
+    .then(response => {
+      LogManager.w( AppInstance?.type.__name, "API_GetStoreReleaseWaitList()", "Result", JSON.stringify( response.data ) )
+      if( response.data.success > 0 ) {
+        WaitStoreList.value = response.data.store
+        WaitReleaseList.value = response.data.release
+      }
+      else if( response.data.success == -1000 ) {
+        alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )
+        GLOBAL_PROPERTY.$SignInState = false
+        router.push( "/" )
+      }
+      else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+    })
+    .catch(ex => {
+      LogManager.w( AppInstance?.type.__name, "API_GetStoreReleaseWaitList()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
   }

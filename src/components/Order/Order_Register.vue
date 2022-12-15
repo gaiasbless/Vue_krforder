@@ -121,7 +121,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_01"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_01" required/>
                 </div>
               </div>
             </td>
@@ -186,7 +186,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_02"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_02" v-bind:required="OrderFromState.DisplayProduct2"/>
                 </div>
               </div>
             </td>
@@ -254,7 +254,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_03"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_03" v-bind:required="OrderFromState.DisplayProduct3"/>
                 </div>
               </div>
             </td>
@@ -322,7 +322,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_04"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo.Purpose_04" v-bind:required="OrderFromState.DisplayProduct4"/>
                 </div>
               </div>
             </td>
@@ -460,22 +460,22 @@
   // 감시자
   watch(() => [OrderInfo.value.Quantity_01, OrderInfo.value.Quantity_Unit_01], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register", "Watch", "Quantity_01 : " + NewValue[0] + " / Quantity_Unit_01 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_01 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_01 = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value.Quantity_Package_01 = 0
   })
   watch(() => [OrderInfo.value.Quantity_02, OrderInfo.value.Quantity_Unit_02], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register", "Watch", "Quantity_02 : " + NewValue[0] + " / Quantity_Unit_02 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_02 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_02 = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value.Quantity_Package_02 = 0
   })
   watch(() => [OrderInfo.value.Quantity_03, OrderInfo.value.Quantity_Unit_03], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register", "Watch", "Quantity_03 : " + NewValue[0] + " / Quantity_Unit_03 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_03 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_03 = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value.Quantity_Package_03 = 0
   })
   watch(() => [OrderInfo.value.Quantity_04, OrderInfo.value.Quantity_Unit_04], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register", "Watch", "Quantity_04 : " + NewValue[0] + " / Quantity_Unit_04 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_04 = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value.Quantity_Package_04 = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value.Quantity_Package_04 = 0
   })
   // 레이아웃 출력 - 기본

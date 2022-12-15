@@ -36,30 +36,28 @@
             <th class="text-center align-middle" scope="col">일련번호</th>
             <th class="text-center align-middle" scope="col">품명</th>
             <th class="text-center align-middle" scope="col">수량</th>
-            <th class="text-center align-middle" scope="col">단위수량</th>
             <th class="text-center align-middle" scope="col">입고수량</th>
-            <th class="text-center align-middle" scope="col">미출고수량</th>
+            <th class="text-center align-middle" scope="col">출고수량</th>
+            <th class="text-center align-middle" scope="col">출고가능</th>
             <th class="text-center align-middle" scope="col">주문자</th>
             <th class="text-center align-middle" scope="col">발주처</th>
-            <th class="text-center align-middle" scope="col">경과시간</th>
+            <th class="text-center align-middle" scope="col">경과일</th>
             <th class="text-center align-middle" scope="col">입고시간</th>
-            <th class="text-center align-middle" scope="col">발주시간</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="ReleaseInfo in WaitReleaseList" v-bind:key="ReleaseInfo.idx" v-on:click="DisplayLayout_Store_Detail( ReleaseInfo.idx )">
+          <tr v-for="ReleaseInfo in WaitReleaseList" v-bind:key="ReleaseInfo.idx" v-on:click="DisplayLayout_Release_Detail( ReleaseInfo.idx )">
               <td class="text-center align-middle">{{ ReleaseInfo.OrderNumber }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.SerialNumber }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.ProductName }}</td>
               <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity ) }}</td>
-              <td class="text-center align-middle">{{ ReleaseInfo.Quantity_Unit == 0 ? '-' : NumberFormat( ReleaseInfo.Quantity_Unit ) }}</td>
               <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity_Stored ) }}</td>
+              <td class="text-center align-middle">{{ NumberFormat( ReleaseInfo.Quantity_Released ) }}</td>
               <td class="text-center align-middle text-danger">{{ NumberFormat( ReleaseInfo.Quantity_Left ) }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.Order_Name }}</td>
               <td class="text-center align-middle">{{ ReleaseInfo.ReceiveOrder_Company }}</td>
-              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Release > 60 ? (ReleaseInfo.TimeDiff_Release/60).toFixed(1) + "h" : ReleaseInfo.TimeDiff_Release + "m" }}</td>
+              <td class="text-center align-middle">{{ ReleaseInfo.TimeDiff_Release }}d</td>
               <td class="text-center align-middle">{{ ReleaseInfo.ProcessTime_Delivered }}</td>
-              <td class="text-center align-middle">{{ ReleaseInfo.RegisterTime }}</td>
           </tr>
         </tbody>
       </table>
@@ -72,6 +70,7 @@
   // 인스턴스 생성
   import { getCurrentInstance, ref, shallowRef, onMounted } from 'vue'
   import LogManager from '@/utility/LogManager'
+  import router from '@/router'
   import moment from 'moment'
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
@@ -88,6 +87,11 @@
   // 내부 함수
   function DisplayLayout_Default() {
     API_GetWaitReleaseList()
+  }
+  // 레이아웃 출력 - 출고대기 상세화면
+  function DisplayLayout_Release_Detail( Param_OrderIndex ) {
+    LogManager.w( AppInstance?.type.__name, "DisplayLayout_Release_Detail()", "OrderIndex", Param_OrderIndex )
+    router.push( { name: 'Logistics_Release_Detail', params: { OrderIndex: Param_OrderIndex }} )
   }
   // 숫자 포맷 설정 (구분자 콤마 표시)
   function NumberFormat( Number ) {

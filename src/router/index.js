@@ -8,6 +8,7 @@ import Order_Register_DirectView from '@/components/Order/Order_Register_DirectV
 import Order_Register_DirectSet from '@/components/Order/Order_Register_DirectSet.vue'
 import Logistics_Main from '@/components/Logistics/Logistics_Main.vue'
 import Logistics_Store_Detail from '@/components/Logistics/Logistics_Store_Detail.vue'
+import Logistics_Release_Detail from '@/components/Logistics/Logistics_Release_Detail.vue'
 
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 
@@ -52,6 +53,12 @@ const routes = [
     path: "/logistics/storedetail/:OrderIndex",
     name: 'Logistics_Store_Detail',
     component: Logistics_Store_Detail,
+    props: true
+  },
+  {
+    path: "/logistics/releasedetail/:OrderIndex",
+    name: 'Logistics_Release_Detail',
+    component: Logistics_Release_Detail,
     props: true
   },
   {

@@ -3,8 +3,6 @@
     <div class="list-group">
       <span v-bind:class="MenuState.Selected_OrderProductList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'list' )">발주 제품 목록</span>
       <span v-bind:class="MenuState.Selected_OrderRegisterList ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'reglist' )">발주서 목록</span>
-      <span v-bind:class="MenuState.Selected_WaitDeliver ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'waitdeliver' )">입고 대기 목록</span>
-      <span v-bind:class="MenuState.Selected_WaitRelease ? MenuState_Selected : MenuState_Unselected" v-on:click="Event_Click_MenuItem( 'waitrelease' )">출고 대기 목록</span>
       <span v-bind:class="MenuState.Selected_Release ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'release' )">출고 완료 목록</span>
       <span v-bind:class="MenuState.Selected_Register ? MenuState_Selected_Margin : MenuState_Unselected_Margin" v-on:click="Event_Click_MenuItem( 'register' )">발주 등록</span>
     </div>
@@ -31,8 +29,6 @@
   let MenuState = ref( {
       Selected_OrderProductList: false,
       Selected_OrderRegisterList: false,
-      Selected_WaitDeliver: false,
-      Selected_WaitRelease: false,
       Selected_Release: false,
       Selected_Order: false,
   } )
@@ -51,8 +47,6 @@
     // LogManager.w( "Order_Menu", "DisplayLayout_MenuState", "PageName", PageName )
     MenuState.value.Selected_OrderProductList = false
     MenuState.value.Selected_OrderRegisterList = false
-    MenuState.value.Selected_WaitDeliver = false
-    MenuState.value.Selected_WaitRelease = false
     MenuState.value.Selected_Release = false
     MenuState.value.Selected_Register = false
     switch( PageName ) {
@@ -61,12 +55,6 @@
         break;
       case "reglist":
         MenuState.value.Selected_OrderRegisterList = true
-        break;
-      case "waitdeliver":
-        MenuState.value.Selected_WaitDeliver = true
-        break;
-      case "waitrelease":
-        MenuState.value.Selected_WaitRelease = true
         break;
       case "release":
         MenuState.value.Selected_Release = true

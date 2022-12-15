@@ -58,7 +58,7 @@
               <span class="fs-5 fw-bold">수신</span>
             </div>
             <div class="col">
-              <button class="btn btn-primary" style="width: 80px; padding: 3px; font-size: 90%;" type="button" v-on:click="DisplayDialog_SelectCompany">업체선택</button>
+              <button class="btn btn-primary" style="width: 80px; padding: 3px; font-size: 90%;" type="button" v-on:click="DisplayDialog_SelectCompany" v-if="OrderInfo[0].State == 0">업체선택</button>
             </div>
           </div>
           <span class="mt-2 me-4 order_text_large fw-bold">{{ ReceiveCompanyInfo[0].CompanyName }}</span>
@@ -94,17 +94,17 @@
             <td class="table_cell">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[0].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[0].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" required v-bind:readonly="OrderInfo[0].State != 0"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo[0].Dimension_Height" v-on:keypress="InputLimit_OnlyNumber($event)" required/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo[0].Dimension_Height" v-on:keypress="InputLimit_OnlyNumber($event)" required v-bind:readonly="OrderInfo[0].State != 0"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
             <td class="table_cell">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[0].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" required/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[0].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" required v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[0].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" required/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[0].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" required v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell">
               <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[0].Quantity_Package" v-on:keydown.prevent required/>
@@ -117,7 +117,7 @@
                   <span>요청사항 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[0].Request_Message"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[0].Request_Message" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -129,7 +129,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[0].Purpose"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[0].Purpose" required v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -159,17 +159,17 @@
             <td class="table_cell table_col4">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[1].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct2"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[1].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2" v-bind:readonly="OrderInfo[0].State != 0"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo[1].Dimension_Height" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo[1].Dimension_Height" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2" v-bind:readonly="OrderInfo[0].State != 0"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
             <td class="table_cell table_col5">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[1].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[1].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2" v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell table_col6">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[1].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2"/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[1].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct2" v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell table_col7">
               <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[1].Quantity_Package" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct2"/>
@@ -182,7 +182,7 @@
                   <span>요청사항 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[1].Request_Message"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[1].Request_Message" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -194,7 +194,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[1].Purpose"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[1].Purpose" v-bind:required="OrderFromState.DisplayProduct2" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -227,17 +227,17 @@
             <td class="table_cell table_col4">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[2].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct3"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[2].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
                 <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo[2].Dimension_Height" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
             <td class="table_cell table_col5">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[2].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[2].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3" v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell table_col6">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[2].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3"/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[2].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct3" v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell table_col7">
               <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[2].Quantity_Package" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct3"/>
@@ -250,7 +250,7 @@
                   <span>요청사항 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[2].Request_Message"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[2].Request_Message" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -262,7 +262,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[2].Purpose"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[2].Purpose" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -295,17 +295,17 @@
             <td class="table_cell table_col4">
               <div class="row d-flex align-items-center">
                 <div class="col-md-auto mx-0 ps-4 pe-0">가로 :</div>
-                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[3].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.enter="SetFormNextFocus" v-bind:required="OrderFromState.DisplayProduct4"/></div>
+                <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0" id="Input_ProductCode" type="text"  placeholder="필수" v-model="OrderInfo[3].Dimension_Width" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/></div>
                 <div class="col-md-auto mx-0 px-0">mm / 세로 :</div>
                 <div class="col mx-0 px-0"><input class="form-control table_input text-center px-0 text-left" type="text"  placeholder="필수" v-model="OrderInfo[3].Dimension_Height" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/></div>
                 <div class="col-md-auto mx-0 ps-0 pe-4">mm</div>
               </div>
             </td>
             <td class="table_cell table_col5">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[3].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[3].Quantity" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4" v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell table_col6">
-              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[3].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4"/>
+              <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[3].Quantity_Unit" v-on:keypress="InputLimit_OnlyNumber($event)" v-bind:required="OrderFromState.DisplayProduct4" v-bind:readonly="OrderInfo[0].State != 0"/>
             </td>
             <td class="table_cell table_col7">
               <input class="form-control table_input text-center" type="text"  placeholder="필수" v-model="OrderInfo[3].Quantity_Package" v-on:keypress="InputLimit_OnlyNumber($event)" v-on:keydown.prevent v-bind:required="OrderFromState.DisplayProduct4"/>
@@ -318,7 +318,7 @@
                   <span>요청사항 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[3].Request_Message"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" type="text" placeholder="요청사항 선택 입력" v-model="OrderInfo[3].Request_Message" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -330,7 +330,7 @@
                   <span>용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도 :</span>
                 </div>
                 <div class="col ms-0 ps-0">
-                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[3].Purpose"/>
+                  <input class="form-control table_input ps-1" style="font-size: 115%" id="Input_ProductRequire" type="text" placeholder="용도 선택 입력" v-model="OrderInfo[3].Purpose" v-bind:readonly="OrderInfo[0].State != 0"/>
                 </div>
               </div>
             </td>
@@ -352,7 +352,7 @@
           <tr>
             <td class="table_title" style="width: 100px">납기 요청일</td>
             <td class="table_cell">
-              <Datepicker inputClassName="dp-custom-input" v-model="OrderInfo[0].RequestDeliverDate" ref="Datepicker_RequestDeliverDate" placeholder="납기 요청일 선택 입력" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="true" autoApply></Datepicker>
+              <Datepicker inputClassName="dp-custom-input" v-model="OrderInfo[0].RequestDeliverDate" ref="Datepicker_RequestDeliverDate" placeholder="납기 요청일 선택 입력" format="yyyy-MM-dd" locale="ko" :enableTimePicker="false" :clearable="true" autoApply v-bind:readonly="OrderInfo[0].State != 0"></Datepicker>
             </td>
           </tr>
         </table>
@@ -363,7 +363,7 @@
           <tr>
             <td class="table_title" style="width: 100px">비고</td>
             <td class="table_cell">
-              <textarea class="form-control" v-model="OrderInfo[0].ExtraMessage" id="floatingTextarea2" style="height: 150px; border: none;"></textarea>
+              <textarea class="form-control" v-model="OrderInfo[0].ExtraMessage" id="floatingTextarea2" style="height: 150px; border: none;" v-bind:readonly="OrderInfo[0].State != 0"></textarea>
             </td>
           </tr>
         </table>
@@ -384,6 +384,7 @@
       <div class="row mt-4 mb-5">
         <div class="col d-flex align-items-center justify-content-center">
           <button class="btn btn-primary px-4 me-1" type="submit" onclick="return confirm( '수정된 발주서를 다시 등록 할까요?' )" v-if="OrderInfo[0].State == 0">수정</button>
+          <button class="btn btn-outline-primary px-4 mx-1" type="button" v-on:click="DisplayLayout_DeleteConfirm()" v-if="OrderInfo[0].State == 0">삭제</button>
           <button class="btn btn-outline-secondary px-4 ms-1" type="button" v-on:click="DisplayLayout_CancelConfirm()">취소</button>
         </div>
       </div>
@@ -443,22 +444,22 @@
   // 감시자
   watch(() => [OrderInfo.value[0].Quantity, OrderInfo.value[0].Quantity_Unit], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register_Modify", "Watch", "Quantity_01 : " + NewValue[0] + " / Quantity_Unit_01 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[0].Quantity_Package = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[0].Quantity_Package = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value[0].Quantity_Package = 0
   })
   watch(() => [OrderInfo.value[1].Quantity, OrderInfo.value[1].Quantity_Unit], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register_Modify", "Watch", "Quantity_02 : " + NewValue[0] + " / Quantity_Unit_02 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[1].Quantity_Package = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[1].Quantity_Package = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value[1].Quantity_Package = 0
   })
   watch(() => [OrderInfo.value[2].Quantity, OrderInfo.value[2].Quantity_Unit], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register_Modify", "Watch", "Quantity_03 : " + NewValue[0] + " / Quantity_Unit_03 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[2].Quantity_Package = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[2].Quantity_Package = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value[2].Quantity_Package = 0
   })
   watch(() => [OrderInfo.value[3].Quantity, OrderInfo.value[3].Quantity_Unit], ( NewValue, OldValue ) => {
     LogManager.w( "Order_Register_Modify", "Watch", "Quantity_04 : " + NewValue[0] + " / Quantity_Unit_04 : " + NewValue[1] )
-    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[3].Quantity_Package = Math.round(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
+    if( NewValue[0] > 0 && NewValue[1] > 0 ) OrderInfo.value[3].Quantity_Package = Math.floor(NewValue[0] / NewValue[1]) + (NewValue[0] % NewValue[1] > 0 ? 1 : 0)
     else OrderInfo.value[3].Quantity_Package = 0
   })
   // 레이아웃 출력 - 기본
@@ -466,7 +467,11 @@
     // API 요청 - 발주서 상세 정보 수집
     API_GetOrderDetailInfo()
   }
-  // 레이아웃 출력 - 수정 취소
+  // 레이아웃 출력 - 삭제
+  function DisplayLayout_DeleteConfirm() {
+    if( confirm( "발주서를 삭제 할까요?" ) ) API_DeleteOrderInfo()
+  }
+  // 레이아웃 출력 - 취소
   function DisplayLayout_CancelConfirm() {
     if( OrderInfo.value[0].State == 0 ) {
       if( confirm( "수정 중인 데어터가 저장되지 않았습니다\n수정을 종료 할까요?" ) ) router.go( -1 )
@@ -500,8 +505,10 @@
   }
   // 다이얼로그 출력 - 제품선택
   function DisplayDialog_SelectProduct( Sequence ) {
-    OrderSequence.value = Sequence
-    Component_Content.value = Dialog_SelectProduct
+    if( OrderInfo[0].State == 0 ) {
+      OrderSequence.value = Sequence
+      Component_Content.value = Dialog_SelectProduct
+    }
   }
   // 입력제한 - 전체
   function InputLimit_Prevent( Event ) {
@@ -663,6 +670,38 @@
     })
     .catch(ex => {
       LogManager.w( AppInstance?.type.__name, "API_ModifyOrderInfo()", "서버 요청 오류", ex )
+      alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+    })
+  }
+  // API 요청 - 수신회사 정보 수집
+  function API_DeleteOrderInfo() {
+    var PostParams = new URLSearchParams();
+    PostParams.append( 'ORDER_NUMBER', Props.OrderNumber )
+    LogManager.w( AppInstance?.type.__name, "API_DeleteOrderInfo()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Order/RegisterList/DeleteOrderInfo.php.php", PostParams )
+    .then(response => {
+      LogManager.w( AppInstance?.type.__name, "API_DeleteOrderInfo()", "Result", JSON.stringify( response.data ) )
+      if( response.data.success > 0 ) {
+        alert( "발주서가 삭제 되었습니다." )
+        router.go( -1 )
+      }
+      else if( response.data.success == -1 ) {
+        alert( "발주서를 삭제할 수 없습니다.\n\n발주서가 이미 전달되어 작업 진행 되었습니다.\n발주서 상태를 다시 확인하세요." )
+        router.go( -1 )
+      }
+      else if( response.data.success == -10 ) {
+        alert( "발주서 삭제 권한이 없습니다." )
+        router.go( -1 )
+      }
+      else if( response.data.success == -1000 ) {
+        alert( "인증키 오류가 발생 되었습니다. 로그인 후 사용해 주세요." )
+        GLOBAL_PROPERTY.$SignInState = false
+        router.push( "/" )
+      }
+      else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
+    })
+    .catch(ex => {
+      LogManager.w( AppInstance?.type.__name, "API_DeleteOrderInfo()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
   }

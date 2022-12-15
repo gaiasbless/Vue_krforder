@@ -36,7 +36,6 @@
             <th class="text-center align-middle" scope="col">일련번호</th>
             <th class="text-center align-middle" scope="col">품명</th>
             <th class="text-center align-middle" scope="col">수량</th>
-            <th class="text-center align-middle" scope="col">단위수량</th>
             <th class="text-center align-middle" scope="col">입고수량</th>
             <th class="text-center align-middle" scope="col">미입고수량</th>
             <th class="text-center align-middle" scope="col">주문자</th>
@@ -52,7 +51,6 @@
               <td class="text-center align-middle">{{ StoreInfo.SerialNumber }}</td>
               <td class="text-center align-middle">{{ StoreInfo.ProductName }}</td>
               <td class="text-center align-middle">{{ NumberFormat( StoreInfo.Quantity ) }}</td>
-              <td class="text-center align-middle">{{ StoreInfo.Quantity_Unit == 0 ? '-' : NumberFormat( StoreInfo.Quantity_Unit ) }}</td>
               <td class="text-center align-middle">{{ NumberFormat( StoreInfo.Quantity_Stored ) }}</td>
               <td class="text-center align-middle text-danger">{{ NumberFormat( StoreInfo.Quantity_Left ) }}</td>
               <td class="text-center align-middle">{{ StoreInfo.Order_Name }}</td>
@@ -69,22 +67,17 @@
 </template>
 
 <script setup>
-  import '@vuepic/vue-datepicker/dist/main.css';
-
   // 인스턴스 생성
   import { getCurrentInstance, ref, shallowRef, onMounted } from 'vue'
   import LogManager from '@/utility/LogManager'
   import router from '@/router'
   import moment from 'moment'
-  import Datepicker from '@vuepic/vue-datepicker';
   // 인스턴스 할당
   const AppInstance = getCurrentInstance()
   const AxiosInstance = AppInstance.appContext.config.globalProperties.$axios
   // 전역변수 할당
   let GLOBAL_PROPERTY = AppInstance.appContext.config.globalProperties
   // 내부변수 할당
-  let DatePicker_Start = ref( new Date() )
-  let DatePicker_Finish = ref( new Date() )
   let WaitStoreList = ref( [] )
   // 이벤트 설정
   onMounted(() => {
@@ -97,7 +90,7 @@
   }
   // 레이아웃 출력 - 입고대기 상세화면
   function DisplayLayout_Store_Detail( Param_OrderIndex ) {
-    LogManager.w( AppInstance?.type.__name, "DisplayLayout_WaitStoreDetail()", "OrderIndex", Param_OrderIndex )
+    LogManager.w( AppInstance?.type.__name, "DisplayLayout_Store_Detail()", "OrderIndex", Param_OrderIndex )
     router.push( { name: 'Logistics_Store_Detail', params: { OrderIndex: Param_OrderIndex }} )
   }
   // 숫자 포맷 설정 (구분자 콤마 표시)

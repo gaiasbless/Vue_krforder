@@ -2,11 +2,11 @@
   <div class="w-100 d-flex flex-column p-2 align-items-center" style="min-width: 900px">
 
     <div class="mt-3 d-flex flex-row">
-      <img class="mt-1 me-2" src="@bootstrap-icons/icons/save.svg" width="18" height="18">
-      <h5><b>입고 대기 상세내역</b></h5>
+      <img class="mt-1 me-2" src="@bootstrap-icons/icons/truck.svg" width="18" height="18">
+      <h5><b>출고 대기 상세내역</b></h5>
     </div>
 
-    <form class="mt-2 px-4" style="width: 900px" v-on:submit.prevent="API_SetStoreQuantity" autocomplete="off">
+    <form class="mt-2 px-4" style="width: 900px" v-on:submit.prevent="" autocomplete="off">
       <div class="row mt-1">
         <div class="col p-0">
           <span class="fw-bold ps-1">발주번호 : {{ OrderInfo[0].OrderNumber }}</span>
@@ -101,18 +101,18 @@
         </table>
       </div>
 
-      <!-- 입고 수량 설정 -->
+      <!-- 출고 수량 설정 -->
       <div class="row mt-2">
         <span class="fw-bold fs-6 ps-0">입고 수량 설정</span>
         <table>
           <tr>
-            <td class="table_title" style="width: 100px">미입고 수량</td>
+            <td class="table_title" style="width: 100px">출고 가능 수량</td>
             <td class="table_cell align-top text-start p-2 fw-bold fs-6 text-danger">{{ NumberFormat( OrderInfo[0].Quantity_Left ) }}</td>
           </tr>
           <tr>
-            <td class="table_title" style="width: 100px">입고 수량</td>
+            <td class="table_title" style="width: 100px">출고 수량</td>
             <td class="table_cell align-top text-start">
-              <input class="form-control table_input ps-2 fw-bold fs-6" type="text" placeholder="입고 수량을 입력하세요" v-model="StoreQuantity" v-on:keypress="InputLimit_OnlyNumber($event)" required/>
+              <input class="form-control table_input ps-2 fw-bold fs-6" type="text" placeholder="출고 수량을 입력하세요" v-model="ReleaseQuantity" v-on:keypress="InputLimit_OnlyNumber($event)" required/>
             </td>
           </tr>
         </table>
@@ -120,8 +120,7 @@
 
       <div class="row mt-4 mb-5">
         <div class="col d-flex align-items-center justify-content-center">
-          <button class="btn btn-outline-success fw-bold px-4 me-2" type="button" v-on:click="SetStoreQuantity( 1 )">내부 작업용 입고</button>
-          <button class="btn btn-outline-info fw-bold px-5 mx-2" type="button" v-on:click="SetStoreQuantity( 2 )">출고용 입고</button>
+          <button class="btn btn-outline-success fw-bold px-4 me-2" type="button" v-on:click="SetReleaseQuantity()">출고</button>
           <button class="btn btn-outline-secondary px-4 ms-2" type="button" v-on:click="router.go( -1 )">취소</button>
         </div>
       </div>
@@ -149,7 +148,7 @@
   let OrderCompanyInfo = ref( [{}] )
   let ReceiveCompanyInfo = ref( [{}] )
   let OrderInfo = ref( [{}] )
-  let StoreQuantity = ref( 0 )
+  let ReleaseQuantity = ref( 0 )
   // 이벤트 설정
   onMounted(() => {
     LogManager.w( "Logistics_Store_Detail", 'onMounted()', 'Props', JSON.stringify( Props ) )
@@ -157,7 +156,7 @@
   })
   // 레이아웃 출력 - 기본
   function DisplayLayout_Default() {
-    API_GetWaitStoreDetail()
+    API_GetWaitReleaseDetail()
   }
   // 입력제한 - 숫자만
   function InputLimit_OnlyNumber( Event ) {
@@ -170,25 +169,25 @@
     return String( Number ).replace( /\B(?=(\d{3})+(?!\d))/g, "," )
   }
   // 입고 설정
-  function SetStoreQuantity( StoreType ) {
-    if( String(StoreQuantity.value).length == 0 ) alert( "입고 수량이 입력되지 않았습니다." )
-    else if( StoreQuantity.value <= 0 ) alert( "입고 수량은 0보다 커야 합니다." )
-    else if( Number(OrderInfo.value[0].Quantity_Left) < Number(StoreQuantity.value) ) alert( "입고 수량이 미입고 수량보다 큽니다.\n확인 후 다시 진행해 주세요." )
-    else if( confirm( "입고 수량을 입력 할까요?" ) ) API_SetStoreQuantity( StoreType )
+  function SetReleaseQuantity() {
+    if( String(ReleaseQuantity.value).length == 0 ) alert( "출고 수량이 입력되지 않았습니다." )
+    else if( ReleaseQuantity.value <= 0 ) alert( "출고 수량은 0보다 커야 합니다." )
+    else if( Number(OrderInfo.value[0].Quantity_Left) < Number(ReleaseQuantity.value) ) alert( "출고 수량이 출고가능 수량보다 큽니다.\n확인 후 다시 진행해 주세요." )
+    else if( confirm( "출고 수량을 입력 할까요?" ) ) API_SetReleaseQuantity()
   }
   // API 요청 - 입고 대기 품목 상세정보 수집
-  function API_GetWaitStoreDetail() {
+  function API_GetWaitReleaseDetail() {
     var PostParams = new URLSearchParams();
     PostParams.append( 'ORDER_INDEX', Props.OrderIndex );
-    LogManager.w( AppInstance?.type.__name, "API_GetWaitStoreDetail()", "Parameter", PostParams.toString() )
-    AxiosInstance.post( "/api/Logistics/Store/GetWaitStoreDetail.php", PostParams )
+    LogManager.w( AppInstance?.type.__name, "API_GetWaitReleaseDetail()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Logistics/Release/GetWaitReleaseDetail.php", PostParams )
     .then(response => {
-      LogManager.w( AppInstance?.type.__name, "API_GetWaitStoreDetail()", "Result", JSON.stringify( response.data ) )
+      LogManager.w( AppInstance?.type.__name, "API_GetWaitReleaseDetail()", "Result", JSON.stringify( response.data ) )
       if( response.data.success > 0 ) {
         OrderInfo.value = response.data.data
         OrderCompanyInfo.value = response.data.OrderCompany
         ReceiveCompanyInfo.value = response.data.ReceiveCompany
-        StoreQuantity.value = OrderInfo.value[0].Quantity_Left
+        ReleaseQuantity.value = OrderInfo.value[0].Quantity_Left
       }
       else if( response.data.success == -10 ) {
         alert( "입고 수량 읽기 권한이 없습니다." )
@@ -202,26 +201,25 @@
       else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
     .catch(ex => {
-      LogManager.w( AppInstance?.type.__name, "API_GetWaitStoreDetail()", "서버 요청 오류", ex )
+      LogManager.w( AppInstance?.type.__name, "API_GetWaitReleaseDetail()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
   }
   // API 요청 - 입고 수량 설정
-  function API_SetStoreQuantity( StoreType ) {
+  function API_SetReleaseQuantity() {
     var PostParams = new URLSearchParams();
     PostParams.append( 'ORDER_INDEX', Props.OrderIndex );
-    PostParams.append( 'STORE_TYPE', StoreType );
-    PostParams.append( 'STORE_QUANTITY', StoreQuantity.value );
-    LogManager.w( AppInstance?.type.__name, "API_SetStoreQuantity()", "Parameter", PostParams.toString() )
-    AxiosInstance.post( "/api/Logistics/Store/SetStoreQuantity.php", PostParams )
+    PostParams.append( 'RELEASE_QUANTITY', ReleaseQuantity.value );
+    LogManager.w( AppInstance?.type.__name, "API_SetReleaseQuantity()", "Parameter", PostParams.toString() )
+    AxiosInstance.post( "/api/Logistics/Release/SetReleaseQuantity.php", PostParams )
     .then(response => {
-      LogManager.w( AppInstance?.type.__name, "API_SetStoreQuantity()", "Result", JSON.stringify( response.data ) )
+      LogManager.w( AppInstance?.type.__name, "API_SetReleaseQuantity()", "Result", JSON.stringify( response.data ) )
       if( response.data.success == 1 ) {
-        alert( "입고 수량이 정상 입력 되었습니다." )
+        alert( "출고 수량이 정상 입력 되었습니다." )
         router.go( -1 )
       }
       else if( response.data.success == -10 ) {
-        alert( "입고 수량 등록 권한이 없습니다." )
+        alert( "출고 수량 등록 권한이 없습니다." )
         router.go( -1 )
       }
       else if( response.data.success == -1000 ) {
@@ -232,7 +230,7 @@
       else alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
     .catch(ex => {
-      LogManager.w( AppInstance?.type.__name, "API_SetStoreQuantity()", "서버 요청 오류", ex )
+      LogManager.w( AppInstance?.type.__name, "API_SetReleaseQuantity()", "서버 요청 오류", ex )
       alert( "서버 요청 오류 - 잠시 후 다시 시도해 주세요" )
     })
   }
