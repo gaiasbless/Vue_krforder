@@ -81,7 +81,7 @@
   let WaitStoreList = ref( [] )
   // 이벤트 설정
   onMounted(() => {
-    LogManager.w( "Order_Release", 'onMounted()' )
+    LogManager.w( "Logistics_Store", 'onMounted()' )
     DisplayLayout_Default()
   })
   // 레이아웃 출력 - 기본

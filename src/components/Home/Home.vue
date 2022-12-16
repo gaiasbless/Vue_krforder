@@ -192,7 +192,7 @@
   function DisplayLayout_Default() {
     GetSummaryInfo_Today()
     GetSummaryInfo_Week()
-    // API_GetStoreReleaseWaitList()
+    API_GetStoreReleaseWaitList()
   }
   function GetSummaryInfo_Today() {
     let DateInstance = new Date();
