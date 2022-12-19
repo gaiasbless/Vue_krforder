@@ -36,7 +36,7 @@
     </div>
 
     <div id="MainContent" class="w-100 mt-3 border-top border-dark">
-      <table class="table table-sm table-hover border-bottom border-dark">
+      <table class="table table-sm table-hover">
         <thead>
           <tr>
             <th class="text-center align-middle" scope="col">발주서 번호</th>

@@ -28,8 +28,8 @@
       </div>
     </div>
 
-    <div id="MainContent" class="w-100 mt-3 border-top border-bottom border-dark">
-      <table class="table table-sm table-hover my-0">
+    <div id="MainContent" class="w-100 mt-3 border-top border-dark">
+      <table class="table table-sm table-hover">
         <thead>
           <tr>
             <th class="text-center align-middle" scope="col">주문번호</th>
