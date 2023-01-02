@@ -1,6 +1,6 @@
 <template>
   <div container-fluid class="h-100 d-flex flex-column flex-grow-1 align-items-center">
-    <div class="row" style="width: 550px">
+    <div class="row" style="width: 600px">
       <div class="col">
 
         <div class="row mt-5 border-top border-bottom border-dark bg-primary bg-opacity-25">
@@ -41,9 +41,9 @@
               <tbody>
                 <tr v-for="OrderInfo in OrderList_Today" v-bind:key="OrderInfo.idx">
                   <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
-                    <td class="text-center align-middle">{{ OrderInfo.ProductCode }}</td>
-                    <td class="pe-3 text-end align-middle">{{ NumberFormat( OrderInfo.OrderQuantity ) }}</td>
-                    <td class="pe-4 text-end align-middle">{{ NumberFormat( OrderInfo.PrintQuantity )  }}</td>
+                  <td class="text-center align-middle">{{ OrderInfo.ProductCode }}</td>
+                  <td class="pe-3 text-end align-middle">{{ NumberFormat( OrderInfo.OrderQuantity ) }}</td>
+                  <td class="pe-4 text-end align-middle">{{ NumberFormat( OrderInfo.PrintQuantity )  }}</td>
                 </tr>
               </tbody>
             </table>
@@ -87,10 +87,10 @@
               </thead>
               <tbody>
                 <tr v-for="OrderInfo in OrderList_Week" v-bind:key="OrderInfo.idx">
-                    <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
-                    <td class="text-center align-middle">{{ OrderInfo.ProductCode }}</td>
-                    <td class="pe-3 text-end align-middle">{{ NumberFormat( OrderInfo.OrderQuantity ) }}</td>
-                    <td class="pe-4 text-end align-middle">{{ NumberFormat( OrderInfo.PrintQuantity )  }}</td>
+                  <td class="text-center align-middle">{{ OrderInfo.OrderType }}</td>
+                  <td class="text-center align-middle">{{ OrderInfo.ProductCode }}</td>
+                  <td class="pe-3 text-end align-middle">{{ NumberFormat( OrderInfo.OrderQuantity ) }}</td>
+                  <td class="pe-4 text-end align-middle">{{ NumberFormat( OrderInfo.PrintQuantity )  }}</td>
                 </tr>
               </tbody>
             </table>
